@@ -8,10 +8,16 @@
 Monospaced Programming Font for Linux and Windows
 --------------------------------------------------------------------------------
 
-VERSION 1.7 (beta)
-2011-12-09
+VERSION 1.8 (beta)
+2011-12-16
 
-CHANGES IN THIS VERSION:
+CHANGES IN 1.8
+
+  Fixed a problem where chars showed up as boxes in xfontsel and some apps.
+
+  Tweaks, esp. to 8x17 size
+
+CHANGES IN 1.7
 
   Added two new sizes: tiny 5x9 and large 10x20.
 
