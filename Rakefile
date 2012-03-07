@@ -1,28 +1,31 @@
-INDEX = 'fonts.dir'
-FONTS = FileList['*.bdf']
+require 'rake/clean'
 
-file INDEX => 'Tamzen.rb' do |t|
+fonts_dir = 'fonts.dir'
+file fonts_dir => 'Tamzen.rb' do |t|
   ruby t.prerequisites[0]
   sh 'mkfontdir'
 end
+CLOBBER.include '*.bdf', fonts_dir
 
-FONTS.each do |bdf|
-  png = bdf.ext('png')
-  file png => [bdf, INDEX] do
-    sh 'convert',
-      '-font', `fgrep #{bdf} #{INDEX} | cut -d' ' -f2`.chomp,
-      'label:' + [
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345',
-        'abcdefghijklmnopqrstuvwxyz 67890',
-        '{}[]()<>$*-+=/#_%^@\\\\&|~?\'"`!,.;:',
-        "Illegal1i = oO0  #{bdf}",
-      ].join("\n"),
-      '-bordercolor', 'white',
-      '-border', '5',
-      '-strip',
-      png
-  end
-  task :render => png
+rule '.png' => ['.bdf', fonts_dir] do |t|
+  @bdf_to_x11 ||= Hash[File.readlines(fonts_dir).map(&:split)]
+  sh 'convert',
+    '-font', @bdf_to_x11[t.source],
+    'label:' + [
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345',
+      'abcdefghijklmnopqrstuvwxyz 67890',
+      '{}[]()<>$*-+=/#_%^@\\\\&|~?\'"`!,.;:',
+      "Illegal1i = oO0  #{t.source}",
+    ].join("\n"),
+    '-bordercolor', 'white',
+    '-border', '5',
+    '-strip',
+    t.name
 end
+CLEAN.include '*.png'
 
-task :default => [INDEX, :render]
+task :default => fonts_dir do
+  for png in FileList['*.bdf'].ext('png')
+    Rake::Task[png].invoke
+  end
+end
