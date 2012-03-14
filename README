@@ -8,8 +8,16 @@
 Monospaced Programming Font for Linux and Windows
 --------------------------------------------------------------------------------
 
-VERSION 1.8 (beta)
-2011-12-16
+VERSION 1.9 2012-03-14
+
+CHANGES IN 1.9
+
+  Fixed the problem with inverted question mark facing the wrong way.  (Thanks
+  to Swyter for reporting it.)
+
+  Modified the small "w" and "g".
+
+  Restored the original look for size 6x12 bold.
 
 CHANGES IN 1.8
 
