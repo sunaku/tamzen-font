@@ -2,7 +2,7 @@ Tamzen font
 ===========
 
 This is [my personal fork][1] of the wonderful [Tamsyn font][2] by Scott Fial.
-It is programatically forked from Tamsyn version 1.8 by the `Tamzen.rb` script
+It is programatically forked from Tamsyn version 1.9 by the `Tamzen.rb` script
 (needs `gem install grit` library) and diverges from it in the following ways:
 
 * Medium "g" is backported from Tamsyn 1.6.
