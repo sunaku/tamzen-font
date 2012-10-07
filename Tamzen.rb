@@ -39,14 +39,15 @@ GIT.tree('v1.9').blobs.each do |blob|
         ['w'.ord, //,       'v1.6'],
         ['y'.ord, //,       'v1.6'],
       ].
-      each do |code, weight, version|
+      each do |code, weight, *versions|
         if font.props['WEIGHT_NAME'] =~ weight
-          if old_blob = GIT.tree(version) / font.file
-            old_font = Font.new(old_blob)
-            font.chars[code] = old_font.chars[code]
-          else
-            raise "version #{version} lacks #{font.file}"
-          end
+          versions.any? do |version|
+            if old_blob = GIT.tree(version) / font.file
+              old_font = Font.new(old_blob)
+              font.chars[code] = old_font.chars[code]
+              true
+            end
+          end or raise "versions #{versions} lack #{font.file}"
         end
       end
 
@@ -55,7 +56,7 @@ GIT.tree('v1.9').blobs.each do |blob|
       File.write font.file.sub(*rename), font.to_s.gsub(*rename)
 
     rescue => error
-      warn "#{$0}: could not fork #{blob.name}: #{error}"
+      warn "#{$0}: could not fork #{blob.name} because #{error}"
     end
   end
 end
