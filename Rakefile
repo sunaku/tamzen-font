@@ -14,7 +14,7 @@ rule '.png' => ['.bdf', fonts_dir] do |t|
     'label:' + [
       'ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345',
       'abcdefghijklmnopqrstuvwxyz 67890',
-      '{}[]()<>$*-+=/#_%^@\\\\&|~?\'"`!,.;:',
+      '{}[]()<>$*-+=/#_\%^@\\\\&|~?\'"`!,.;:',
       "Illegal1i = oO0  #{t.source}",
     ].join("\n"),
     '-bordercolor', 'white',
