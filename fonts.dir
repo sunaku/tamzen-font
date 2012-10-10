@@ -1,6 +1,12 @@
-10
+16
+Tamzen10x20b.bdf -misc-tamzen-bold-r-normal--20-145-100-100-c-100-iso8859-1
+Tamzen10x20r.bdf -misc-tamzen-medium-r-normal--20-145-100-100-c-100-iso8859-1
+Tamzen5x9b.bdf -misc-tamzen-bold-r-normal--9-65-100-100-c-50-iso8859-1
+Tamzen5x9r.bdf -misc-tamzen-medium-r-normal--9-65-100-100-c-50-iso8859-1
 Tamzen6x11b.bdf -misc-tamzen-bold-r-normal--11-79-100-100-c-60-iso8859-1
 Tamzen6x11r.bdf -misc-tamzen-medium-r-normal--11-79-100-100-c-60-iso8859-1
+Tamzen6x12b.bdf -misc-tamzen-bold-r-normal--12-87-100-100-c-60-iso8859-1
+Tamzen6x12r.bdf -misc-tamzen-medium-r-normal--12-87-100-100-c-60-iso8859-1
 Tamzen7x12b.bdf -misc-tamzen-bold-r-normal--12-87-100-100-c-70-iso8859-1
 Tamzen7x12r.bdf -misc-tamzen-medium-r-normal--12-87-100-100-c-70-iso8859-1
 Tamzen7x14b.bdf -misc-tamzen-bold-r-normal--14-101-100-100-c-70-iso8859-1
