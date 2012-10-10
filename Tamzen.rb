@@ -40,36 +40,33 @@ repo = Grit::Repo.new('.')
 trees = Hash.new {|h,k| h[k] = repo.tree(k) }
 trees['v1.9'].blobs.each do |blob|
   if blob.name.end_with? '.bdf'
-    begin
-      font = Font.new(blob)
+    font = Font.new(blob)
 
-      # delete empty glyphs except space (32) and non-breaking space (160)
-      font.chars.each do |code, char|
-        if char =~ /BITMAP\n(?:00\n)+ENDCHAR/ && code != 32 && code != 160
-          font.chars.delete code
-        end
+    # delete empty glyphs except space (32) and non-breaking space (160)
+    font.chars.each do |code, char|
+      if char =~ /BITMAP\n(?:00\n)+ENDCHAR/ && code != 32 && code != 160
+        font.chars.delete code
       end
-
-      # backport characters from older versions of the font
-      BACKPORTS.each do |backport|
-        code = backport[:character].ord
-        if font.props['WEIGHT_NAME'] =~ backport[:weight]
-          backport[:versions].any? do |version|
-            if old_blob = trees[version] / font.file
-              old_font = Font.new(old_blob)
-              font.chars[code] = old_font.chars[code]
-              true
-            end
-          end or raise "versions #{backport[:versions]} lack #{font.file}"
-        end
-      end
-
-      # output the modified font under a different name
-      rename = ['Tamsyn', 'Tamzen']
-      File.write font.file.sub(*rename), font.to_s.gsub(*rename)
-
-    rescue => error
-      warn "#{$0}: could not fork #{blob.name} because #{error}"
     end
+
+    # backport characters from older versions of the font
+    BACKPORTS.each do |backport|
+      code = backport[:character].ord
+      if font.props['WEIGHT_NAME'] =~ backport[:weight]
+        backport[:versions].any? do |version|
+          if old_blob = trees[version] / font.file
+            old_font = Font.new(old_blob)
+            font.chars[code] = old_font.chars[code]
+            true
+          end
+        end or warn \
+        "#{$0}: could not fork #{blob.name} because "\
+        "versions #{backport[:versions]} lack #{font.file}"
+      end
+    end
+
+    # output the modified font under a different name
+    rename = ['Tamsyn', 'Tamzen']
+    File.write font.file.sub(*rename), font.to_s.gsub(*rename)
   end
 end
