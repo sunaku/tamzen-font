@@ -61,9 +61,7 @@ trees['v1.9'].blobs.each do |blob|
               true
             end
           end
-        end or warn \
-        "#{$0}: could not fork #{blob.name} because "\
-        "versions #{backport[:versions]} lack #{font.file}"
+        end or warn "#{$0}: could not backport #{backport} into #{font.file}"
       end
     end
 
