@@ -23,6 +23,13 @@ class Font < Struct.new(:file, :props, :chars)
     props = Hash[head.lines.map {|s| s.chomp.split(' ', 2) }]
     chars = Hash[body.map {|s| [Integer(s[/ENCODING (\d+)/, 1]), s] }]
     super blob.name, props, chars
+
+    # delete empty glyphs except space (32) and non-breaking space (160)
+    chars.each do |code, char|
+      if char =~ /BITMAP\n(?:00\n)+ENDCHAR/ && code != 32 && code != 160
+        chars.delete code
+      end
+    end
   end
 
   def to_s
@@ -42,13 +49,6 @@ trees['v1.9'].blobs.each do |blob|
   if blob.name.end_with? '.bdf'
     font = Font.new(blob)
 
-    # delete empty glyphs except space (32) and non-breaking space (160)
-    font.chars.each do |code, char|
-      if char =~ /BITMAP\n(?:00\n)+ENDCHAR/ && code != 32 && code != 160
-        font.chars.delete code
-      end
-    end
-
     # backport characters from older versions of the font
     BACKPORTS.each do |backport|
       code = backport[:character].ord
@@ -56,8 +56,10 @@ trees['v1.9'].blobs.each do |blob|
         backport[:versions].any? do |version|
           if old_blob = trees[version] / font.file
             old_font = Font.new(old_blob)
-            font.chars[code] = old_font.chars[code]
-            true
+            if old_char = old_font.chars[code]
+              font.chars[code] = old_char
+              true
+            end
           end
         end or warn \
         "#{$0}: could not fork #{blob.name} because "\
