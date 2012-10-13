@@ -4,6 +4,8 @@ fonts_dir = 'fonts.dir'
 file fonts_dir => 'Tamzen.rb' do |t|
   ruby t.prerequisites[0]
   sh 'mkfontdir'
+  sh 'xset', '+fp', Dir.pwd
+  sh 'xset', 'fp', 'rehash'
 end
 CLOBBER.include '*.bdf', fonts_dir
 
