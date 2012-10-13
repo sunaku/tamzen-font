@@ -14,6 +14,10 @@ It is programatically forked from Tamsyn version 1.9 by the `Tamzen.rb` script
 * Deliberately empty glyphs are deleted (marked as unimplemented) so that they
   do not block secondary fonts from supplying real glyphs at those codepoints.
 
+For the new 10x20 size introduced in Tamsyn 1.9:
+* Medium "U" is manually derived from Tamsyn 1.6.
+* Bold and medium "g" is manually derived from Tamsyn 1.6.
+
 Screenshots
 -----------
 
@@ -28,6 +32,8 @@ Screenshots
 ![Tamzen8x15r.bdf](https://github.com/sunaku/tamzen-font/raw/master/Tamzen8x15r.png)
 ![Tamzen8x17b.bdf](https://github.com/sunaku/tamzen-font/raw/master/Tamzen8x17b.png)
 ![Tamzen8x17r.bdf](https://github.com/sunaku/tamzen-font/raw/master/Tamzen8x17r.png)
+![Tamzen10x20b.bdf](https://github.com/sunaku/tamzen-font/raw/master/Tamzen10x20b.png)
+![Tamzen10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/Tamzen10x20r.png)
 
 Installation
 ------------
