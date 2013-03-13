@@ -46,6 +46,39 @@ Copy the `Tamzen*.bdf` files into your `~/.fonts` directory and run:
 
 Now you should be able to access the "Tamzen" font family in xfontsel.
 
+### URxvt integration
+
+The following aliases let you dynamically switch between the various Tamzen
+fonts when run inside a shell that is attached to [the URxvt terminal][3].
+
+```sh
+function urxvt-change-font() { printf '\e]710;%s\007' "$@"; }
+alias Tamzen5x9b='urxvt-change-font -misc-tamzen-bold-r-normal--9-65-100-100-c-50-iso8859-1'
+alias Tamzen5x9r='urxvt-change-font -misc-tamzen-medium-r-normal--9-65-100-100-c-50-iso8859-1'
+alias Tamzen-9='urxvt-change-font -misc-tamzen-medium-r-normal--9-65-100-100-c-50-iso8859-1'
+alias Tamzen6x11b='urxvt-change-font -misc-tamzen-bold-r-normal--11-79-100-100-c-60-iso8859-1'
+alias Tamzen6x11r='urxvt-change-font -misc-tamzen-medium-r-normal--11-79-100-100-c-60-iso8859-1'
+alias Tamzen-11='urxvt-change-font -misc-tamzen-medium-r-normal--11-79-100-100-c-60-iso8859-1'
+alias Tamzen6x12b='urxvt-change-font -misc-tamzen-bold-r-normal--12-87-100-100-c-60-iso8859-1'
+alias Tamzen6x12r='urxvt-change-font -misc-tamzen-medium-r-normal--12-87-100-100-c-60-iso8859-1'
+alias Tamzen-12='urxvt-change-font -misc-tamzen-medium-r-normal--12-87-100-100-c-60-iso8859-1'
+alias Tamzen7x12b='urxvt-change-font -misc-tamzen-bold-r-normal--12-87-100-100-c-70-iso8859-1'
+alias Tamzen7x12r='urxvt-change-font -misc-tamzen-medium-r-normal--12-87-100-100-c-70-iso8859-1'
+alias Tamzen-13='urxvt-change-font -misc-tamzen-medium-r-normal--12-87-100-100-c-70-iso8859-1'
+alias Tamzen7x14b='urxvt-change-font -misc-tamzen-bold-r-normal--14-101-100-100-c-70-iso8859-1'
+alias Tamzen7x14r='urxvt-change-font -misc-tamzen-medium-r-normal--14-101-100-100-c-70-iso8859-1'
+alias Tamzen-14='urxvt-change-font -misc-tamzen-medium-r-normal--14-101-100-100-c-70-iso8859-1'
+alias Tamzen8x15b='urxvt-change-font -misc-tamzen-bold-r-normal--15-108-100-100-c-80-iso8859-1'
+alias Tamzen8x15r='urxvt-change-font -misc-tamzen-medium-r-normal--15-108-100-100-c-80-iso8859-1'
+alias Tamzen-15='urxvt-change-font -misc-tamzen-medium-r-normal--15-108-100-100-c-80-iso8859-1'
+alias Tamzen8x17b='urxvt-change-font -misc-tamzen-bold-r-normal--17-123-100-100-c-80-iso8859-1'
+alias Tamzen8x17r='urxvt-change-font -misc-tamzen-medium-r-normal--17-123-100-100-c-80-iso8859-1'
+alias Tamzen-17='urxvt-change-font -misc-tamzen-medium-r-normal--17-123-100-100-c-80-iso8859-1'
+alias Tamzen10x20b='urxvt-change-font -misc-tamzen-bold-r-normal--20-145-100-100-c-100-iso8859-1'
+alias Tamzen10x20r='urxvt-change-font -misc-tamzen-medium-r-normal--20-145-100-100-c-100-iso8859-1'
+alias Tamzen-20='urxvt-change-font -misc-tamzen-medium-r-normal--20-145-100-100-c-100-iso8859-1'
+```
+
 License
 -------
 
@@ -53,3 +86,4 @@ Distributed under the same terms as Tamsyn itself.  See `LICENSE` file.
 
 [1]: http://snk.tuxfamily.org/log/tamsyn-1.7b-review.html
 [2]: http://www.fial.com/~scott/tamsyn-font/
+[3]: http://software.schmorp.de/pkg/rxvt-unicode.html
