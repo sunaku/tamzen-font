@@ -64,6 +64,23 @@ Copy the `Tamzen*.bdf` files into your `~/.fonts` directory and run:
 
 Now you should be able to access the "Tamzen" font family in xfontsel.
 
+### XTerm integration
+
+The following Xresources let you dynamically switch between the various Tamzen
+fonts by holding down Control and right-clicking in [the XTerm terminal][3].
+
+    XTerm*font  : -*-tamzen-medium-*-*-*-15-*-*-*-*-*-*-*
+    XTerm*font1 : -*-tamzen-medium-*-*-*-11-*-*-*-*-*-*-*
+    XTerm*font2 : -*-tamzen-medium-*-*-*-12-*-*-*-*-*-*-*
+    XTerm*font3 : -*-tamzen-medium-*-*-*-14-*-*-*-*-*-*-*
+    XTerm*font4 : -*-tamzen-medium-*-*-*-15-*-*-*-*-*-*-*
+    XTerm*font5 : -*-tamzen-medium-*-*-*-17-*-*-*-*-*-*-*
+    XTerm*font6 : -*-tamzen-medium-*-*-*-20-*-*-*-*-*-*-*
+
+Feed the above snippet into the xrdb(1) program and then start a new XTerm to
+see its effect.  Afterwards, you can add this snippet to your ~/.Xdefaults or
+~/.Xresources files to have these settings be automatically applied by XTerm.
+
 ### URxvt integration
 
 The following aliases let you dynamically switch between the various Tamzen
@@ -113,3 +130,4 @@ Distributed under the same terms as the Tamsyn font.  See `LICENSE` file.
 [1]: http://snk.tuxfamily.org/log/tamsyn-1.7b-review.html
 [2]: http://www.fial.com/~scott/tamsyn-font/
 [3]: http://software.schmorp.de/pkg/rxvt-unicode.html
+[4]: http://invisible-island.net/xterm/
