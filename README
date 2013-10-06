@@ -8,7 +8,20 @@
 Monospaced Programming Font for Linux and Windows
 --------------------------------------------------------------------------------
 
-VERSION 1.9 2012-03-14
+VERSION 1.10 2013-09-17
+
+CHANGES IN 1.10
+
+  New size: 7x13.
+
+  New size: 8x16 (replaces 8x17)
+
+  Many changes in favor of a cleaner look.  In particular, replaced the
+  double-story lowercase "g" with the single-story variety.
+
+  Added the degree symbol.  (Enjoy, Sven!)
+
+  Added the copyright symbol.
 
 CHANGES IN 1.9
 
