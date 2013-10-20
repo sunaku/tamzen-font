@@ -18,6 +18,9 @@ For the new 10x20 size introduced in Tamsyn 1.9:
 * Medium "U" is manually derived from Tamsyn 1.6.
 * Bold and medium "g" are manually derived from Tamsyn 1.6.
 
+The "TamzenForPowerline" fonts provide additional [Powerline symbols][5],
+which were programatically added using [ZyX_I's bitmap-font-patcher][6].
+
 Screenshots
 -----------
 
@@ -53,6 +56,38 @@ Screenshots
 ![Tamzen10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/Tamzen10x20r.png)
 ![Tamzen10x20b.bdf](https://github.com/sunaku/tamzen-font/raw/master/Tamzen10x20b.png)
 
+### TamzenForPowerline-9
+![TamzenForPowerline5x9r.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline5x9r.png)
+![TamzenForPowerline5x9b.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline5x9b.png)
+
+### TamzenForPowerline-11
+![TamzenForPowerline6x11r.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline6x11r.png)
+![TamzenForPowerline6x11b.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline6x11b.png)
+
+### TamzenForPowerline-12
+![TamzenForPowerline6x12r.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline6x12r.png)
+![TamzenForPowerline6x12b.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline6x12b.png)
+
+### TamzenForPowerline-13
+![TamzenForPowerline7x12r.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline7x12r.png)
+![TamzenForPowerline7x12b.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline7x12b.png)
+
+### TamzenForPowerline-14
+![TamzenForPowerline7x14r.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline7x14r.png)
+![TamzenForPowerline7x14b.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline7x14b.png)
+
+### TamzenForPowerline-15
+![TamzenForPowerline8x15r.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline8x15r.png)
+![TamzenForPowerline8x15b.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline8x15b.png)
+
+### TamzenForPowerline-17
+![TamzenForPowerline8x17r.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline8x17r.png)
+![TamzenForPowerline8x17b.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline8x17b.png)
+
+### TamzenForPowerline-20
+![TamzenForPowerline10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline10x20r.png)
+![TamzenForPowerline10x20b.bdf](https://github.com/sunaku/tamzen-font/raw/master/TamzenForPowerline10x20b.png)
+
 Installation
 ------------
 
@@ -76,6 +111,15 @@ fonts by holding down Control and right-clicking in [the XTerm terminal][3].
     XTerm*font4 : -*-tamzen-medium-*-*-*-15-*-*-*-*-*-*-*
     XTerm*font5 : -*-tamzen-medium-*-*-*-17-*-*-*-*-*-*-*
     XTerm*font6 : -*-tamzen-medium-*-*-*-20-*-*-*-*-*-*-*
+
+    ! Tamzen fonts for use with Powerline
+    XTerm*font  : -*-tamzenforpowerline-medium-*-*-*-15-*-*-*-*-*-*-*
+    XTerm*font1 : -*-tamzenforpowerline-medium-*-*-*-11-*-*-*-*-*-*-*
+    XTerm*font2 : -*-tamzenforpowerline-medium-*-*-*-12-*-*-*-*-*-*-*
+    XTerm*font3 : -*-tamzenforpowerline-medium-*-*-*-14-*-*-*-*-*-*-*
+    XTerm*font4 : -*-tamzenforpowerline-medium-*-*-*-15-*-*-*-*-*-*-*
+    XTerm*font5 : -*-tamzenforpowerline-medium-*-*-*-17-*-*-*-*-*-*-*
+    XTerm*font6 : -*-tamzenforpowerline-medium-*-*-*-20-*-*-*-*-*-*-*
 
 Feed the above snippet into the xrdb(1) program and then start a new XTerm to
 see its effect.  Afterwards, you can add this snippet to your ~/.Xdefaults or
@@ -120,6 +164,39 @@ alias Tamzen8x17b='font -misc-tamzen-bold-r-normal--17-123-100-100-c-80-iso8859-
 alias Tamzen-20=Tamzen10x20r
 alias Tamzen10x20r='font -misc-tamzen-medium-r-normal--20-145-100-100-c-100-iso8859-1'
 alias Tamzen10x20b='font -misc-tamzen-bold-r-normal--20-145-100-100-c-100-iso8859-1'
+
+# Tamzen fonts for use with Powerline
+alias TamzenForPowerline-9=TamzenForPowerline5x9r
+alias TamzenForPowerline5x9r='font -misc-tamzenforpowerline-medium-r-normal--9-65-100-100-c-50-iso10646-1'
+alias TamzenForPowerline5x9b='font -misc-tamzenforpowerline-bold-r-normal--9-65-100-100-c-50-iso10646-1'
+
+alias TamzenForPowerline-11=TamzenForPowerline6x11r
+alias TamzenForPowerline6x11r='font -misc-tamzenforpowerline-medium-r-normal--11-79-100-100-c-60-iso10646-1'
+alias TamzenForPowerline6x11b='font -misc-tamzenforpowerline-bold-r-normal--11-79-100-100-c-60-iso10646-1'
+
+alias TamzenForPowerline-12=TamzenForPowerline6x12r
+alias TamzenForPowerline6x12r='font -misc-tamzenforpowerline-medium-r-normal--12-87-100-100-c-60-iso10646-1'
+alias TamzenForPowerline6x12b='font -misc-tamzenforpowerline-bold-r-normal--12-87-100-100-c-60-iso10646-1'
+
+alias TamzenForPowerline-13=TamzenForPowerline7x12r
+alias TamzenForPowerline7x12r='font -misc-tamzenforpowerline-medium-r-normal--12-87-100-100-c-70-iso10646-1'
+alias TamzenForPowerline7x12b='font -misc-tamzenforpowerline-bold-r-normal--12-87-100-100-c-70-iso10646-1'
+
+alias TamzenForPowerline-14=TamzenForPowerline7x14r
+alias TamzenForPowerline7x14r='font -misc-tamzenforpowerline-medium-r-normal--14-101-100-100-c-70-iso10646-1'
+alias TamzenForPowerline7x14b='font -misc-tamzenforpowerline-bold-r-normal--14-101-100-100-c-70-iso10646-1'
+
+alias TamzenForPowerline-15=TamzenForPowerline8x15r
+alias TamzenForPowerline8x15r='font -misc-tamzenforpowerline-medium-r-normal--15-108-100-100-c-80-iso10646-1'
+alias TamzenForPowerline8x15b='font -misc-tamzenforpowerline-bold-r-normal--15-108-100-100-c-80-iso10646-1'
+
+alias TamzenForPowerline-17=TamzenForPowerline8x17r
+alias TamzenForPowerline8x17r='font -misc-tamzenforpowerline-medium-r-normal--17-123-100-100-c-80-iso10646-1'
+alias TamzenForPowerline8x17b='font -misc-tamzenforpowerline-bold-r-normal--17-123-100-100-c-80-iso10646-1'
+
+alias TamzenForPowerline-20=TamzenForPowerline10x20r
+alias TamzenForPowerline10x20r='font -misc-tamzenforpowerline-medium-r-normal--20-145-100-100-c-100-iso10646-1'
+alias TamzenForPowerline10x20b='font -misc-tamzenforpowerline-bold-r-normal--20-145-100-100-c-100-iso10646-1'
 ```
 
 Building
@@ -130,9 +207,16 @@ You can build the Tamzen fonts for yourself by following this procedure.
 ### Requirements
 
 ```sh
-sudo apt-get install ruby git imagemagick
+sudo apt-get install ruby git imagemagick mercurial
 gem install bundler
 bundle install
+```
+Requirements for [bitmap-font-patcher][6]:
+
+```sh
+sudo apt-get install python python-fontforge python-pip
+pip install --user git+git://gitorious.org/bdflib/mainline.git
+pip install --user Pillow
 ```
 
 ### Procedure
@@ -152,3 +236,5 @@ Distributed under the same terms as the Tamsyn font.  See `LICENSE` file.
 [2]: http://www.fial.com/~scott/tamsyn-font/
 [3]: http://software.schmorp.de/pkg/rxvt-unicode.html
 [4]: http://invisible-island.net/xterm/
+[5]: https://powerline.readthedocs.org/en/latest/introduction.html#screenshots
+[6]: https://bitbucket.org/ZyX_I/bitmap-font-patcher
