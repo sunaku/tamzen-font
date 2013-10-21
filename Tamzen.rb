@@ -22,11 +22,11 @@ BACKPORTS = [
 #-----------------------------------------------------------------------------
 
 class Font < Struct.new(:file, :props, :chars)
-  def initialize blob
-    head, *body, @tail = blob.data.split(/(?=\nSTARTCHAR|\nENDFONT)/)
-    props = Hash[head.lines.map {|s| s.chomp.split(' ', 2) }]
+  def initialize file, contents
+    head, *body, @tail = contents.split(/(?=\nSTARTCHAR|\nENDFONT)/)
+    props = Hash[head.lines.map {|s| s.chomp.split(' ', 2) }.reject(&:empty?)]
     chars = Hash[body.map {|s| [Integer(s[/ENCODING (\d+)/, 1]), s] }]
-    super blob.name, props, chars
+    super file, props, chars
 
     # delete empty glyphs except space (32) and non-breaking space (160)
     chars.each do |code, char|
@@ -41,25 +41,24 @@ class Font < Struct.new(:file, :props, :chars)
     [
       props.map {|*a| a.join(' ') }.join(?\n), ?\n,
       chars.values,
-      @tail
+      @tail, ?\n
     ].join
   end
 end
 
-require 'grit'
-repo = Grit::Repo.new('.')
-trees = Hash.new {|h,k| h[k] = repo.tree(k) }
-trees['v1.9'].blobs.each do |blob|
-  if blob.name.end_with? '.bdf'
-    font = Font.new(blob)
+require 'git'
+git = Git.open('.')
+git.gtree('v1.9').blobs.each do |file, blob|
+  if file.end_with? '.bdf'
+    font = Font.new(file, blob.contents)
 
     # backport characters from older versions of the font
     BACKPORTS.each do |backport|
       code = backport[:character].ord
       if font.props['WEIGHT_NAME'] =~ backport[:weight]
         backport[:versions].any? do |version|
-          if old_blob = trees[version] / font.file
-            old_font = Font.new(old_blob)
+          if old_blob = git.gtree(version).blobs[font.file]
+            old_font = Font.new(font.file, old_blob.contents)
             if old_char = old_font.chars[code]
               font.chars[code] = old_char
               true
