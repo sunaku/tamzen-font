@@ -1,3 +1,4 @@
+require 'tempfile'
 require 'rake/clean'
 
 task :default => :screenshots
@@ -51,23 +52,37 @@ task :screenshots => 'fonts.dir' do
 end
 
 rule '.png' => ['.bdf', 'fonts.dir'] do |t|
+  # translate the BDF font filename into its full X11 font name
   @bdf_to_x11 ||= Hash[File.readlines('fonts.dir').map(&:split)]
-  sh 'convert',
+
+  # assemble sample text for rendering
+  lines = [
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345',
+    'abcdefghijklmnopqrstuvwxyz 67890',
+    '{}[]()<>$*-+=/#_%^@\\&|~?\'"`!,.;:',
+    #
+    # visit the following URL for Unicode code points of powerline symbols
+    # https://powerline.readthedocs.org/en/latest/fontpatching.html#glyph-table
+    #
+    "Illegal1i = oO0    \uE0A0 \uE0A1 \uE0A2 \uE0B0 \uE0B1 \uE0B2 \uE0B3"
+  ]
+  width = lines.first.length
+  lines.unshift t.source.center(width)
+
+  # store sample text in a file because it's the easiest way to render
+  sample_text_file = Tempfile.open('screenshot')
+  sample_text_file.write lines.join(?\n)
+  sample_text_file.close
+
+  # render sample text using the source font to the destination image
+  sh 'xterm',
+    '-fg', 'black',
+    '-bg', 'white',
     '-font', @bdf_to_x11[t.source],
-    'label:' + [
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345',
-      'abcdefghijklmnopqrstuvwxyz 67890',
-      '{}[]()<>$*-+=/#_\%^@\\\\&|~?\'"`!,.;:',
-      "Illegal1i = oO0  #{
-        # show powerline symbols in screenshots for powerline fonts
-        # https://powerline.readthedocs.org/en/latest/fontpatching.html#glyph-table
-        if t.name.include? 'Powerline'
-          "  \uE0A0 \uE0A1 \uE0A2 \uE0B0 \uE0B1 \uE0B2 \uE0B3\n   "
-        end
-      }#{ t.source }",
-    ].join("\n"),
-    '-bordercolor', 'white',
-    '-border', '5',
-    '-strip',
-    t.name
+    '-geometry', "#{lines.first.length}x#{lines.length}",
+    '-e', [
+      'tput civis',                                 # hide the cursor
+      "cat #{sample_text_file.path.inspect}",       # show sample text
+      "import -window $WINDOWID #{t.name.inspect}", # take a screenshot
+    ].join(' && ')
 end
