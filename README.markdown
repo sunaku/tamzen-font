@@ -3,7 +3,7 @@ Tamzen font
 
 This is [my personal fork][1] of the wonderful [Tamsyn font][2] by Scott Fial.
 It is programatically forked from Tamsyn version 1.9 by the `Tamzen.rb` script
-(needs `gem install git` library) and diverges from it in the following ways:
+(see the "Building" section below) and diverges from it in the following ways:
 
 * Medium "g" is backported from Tamsyn 1.6.
 * Medium "h" is backported from Tamsyn 1.6.
@@ -120,6 +120,27 @@ alias Tamzen8x17b='font -misc-tamzen-bold-r-normal--17-123-100-100-c-80-iso8859-
 alias Tamzen-20=Tamzen10x20r
 alias Tamzen10x20r='font -misc-tamzen-medium-r-normal--20-145-100-100-c-100-iso8859-1'
 alias Tamzen10x20b='font -misc-tamzen-bold-r-normal--20-145-100-100-c-100-iso8859-1'
+```
+
+Building
+--------
+
+You can build the Tamzen fonts for yourself by following this procedure.
+
+### Requirements
+
+```sh
+sudo apt-get install ruby git imagemagick
+gem install bundler
+bundle install
+```
+
+### Procedure
+
+```sh
+bundle exec rake                 # build things only when necessary
+bundle exec rake clobber         # destroy everything that we built
+bundle exec rake clobber default # rebuild everything from scratch
 ```
 
 License
