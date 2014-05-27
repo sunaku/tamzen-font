@@ -214,7 +214,7 @@ bundle install
 Requirements for [bitmap-font-patcher][6]:
 
 ```sh
-sudo apt-get install python python-fontforge python-pip
+sudo apt-get install python python-fontforge python-pip python-dev
 pip install --user git+git://gitorious.org/bdflib/mainline.git
 pip install --user Pillow
 ```
