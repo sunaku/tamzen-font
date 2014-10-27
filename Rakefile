@@ -45,18 +45,18 @@ class Font < Struct.new(:file, :props, :chars)
 end
 
 TAMZEN_FONT_BACKPORTS = [
-  # backport the given CHARACTER at the given WEIGHT from the given VERSIONS
-  # (try them all, one by one, until one of them has the specified character)
-  #{character: 'S', weight: //,       versions: ['v1.6-derived', 'v1.6']},
-  {character: 'U',  weight: /Medium/, versions: ['v1.6-derived', 'v1.6']},
-  #{character: 'f', weight: //,       versions: ['v1.6-derived', 'v1.6']},
-  {character: 'g',  weight: /Bold/,   versions: ['v1.6-derived', 'v1.6']},
-  {character: 'g',  weight: /Medium/, versions: ['v1.6-derived', 'v1.6']},
-  {character: 'h',  weight: /Medium/, versions: ['v1.6-derived', 'v1.6']},
-  {character: 'm',  weight: /Medium/, versions: ['v1.6-derived', 'v1.6']},
-  {character: 'l',  weight: //,       versions: ['v1.6-derived', 'v1.6']},
-  {character: 'w',  weight: //,       versions: ['v1.6-derived', 'v1.6']},
-  {character: 'y',  weight: //,       versions: ['v1.6-derived', 'v1.6']},
+  # backport the given GLYPH at the given WEIGHT FROM the given versions (try
+  # them, in sequence, until the specified glyph is found) INTO the given font
+# { glyph: 'S', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
+  { glyph: 'U', weight: /Medium/, from: ['v1.6-derived', 'v1.6'], into: // },
+# { glyph: 'f', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
+  { glyph: 'g', weight: /Bold/,   from: ['v1.6-derived', 'v1.6'], into: // },
+  { glyph: 'g', weight: /Medium/, from: ['v1.6-derived', 'v1.6'], into: // },
+  { glyph: 'h', weight: /Medium/, from: ['v1.6-derived', 'v1.6'], into: // },
+  { glyph: 'm', weight: /Medium/, from: ['v1.6-derived', 'v1.6'], into: // },
+  { glyph: 'l', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
+  { glyph: 'w', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
+  { glyph: 'y', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
 ]
 
 desc 'Build Tamzen fonts.'
@@ -69,17 +69,19 @@ task :tamzen do
 
       # backport characters from older versions of the font
       TAMZEN_FONT_BACKPORTS.each do |backport|
-        code = backport[:character].ord
-        if font.props['WEIGHT_NAME'] =~ backport[:weight]
-          backport[:versions].any? do |version|
-            if old_blob = git.gtree(version).blobs[font.file]
-              old_font = Font.new(font.file, old_blob.contents)
-              if old_char = old_font.chars[code]
-                font.chars[code] = old_char
-                true
+        if font.file =~ backport[:into]
+          code = backport[:glyph].ord
+          if font.props['WEIGHT_NAME'] =~ backport[:weight]
+            backport[:from].any? do |version|
+              if old_blob = git.gtree(version).blobs[font.file]
+                old_font = Font.new(font.file, old_blob.contents)
+                if old_char = old_font.chars[code]
+                  font.chars[code] = old_char
+                  true
+                end
               end
-            end
-          end or warn "could not backport #{backport} into #{font.file}"
+            end or warn "#{font.file} backport failed: #{backport}"
+          end
         end
       end
 
