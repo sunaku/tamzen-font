@@ -145,6 +145,7 @@ rule '.png' => ['.bdf', 'fonts.dir'] do |t|
   sh 'xterm',
     '-fg', 'black',
     '-bg', 'white',
+    '-T', t.source,
     '-font', @bdf_to_x11[t.source],
     '-geometry', "#{lines.first.length}x#{lines.length}",
     '-e', [
