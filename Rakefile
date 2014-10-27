@@ -28,7 +28,7 @@ class Font < Struct.new(:file, :props, :chars)
 
     # delete empty glyphs except space (32) and non-breaking space (160)
     chars.each do |code, char|
-      if char =~ /BITMAP\n(?:00\n)+ENDCHAR/ && code != 32 && code != 160
+      if char =~ /BITMAP\n(?:0+\n)+ENDCHAR/ && code != 32 && code != 160
         chars.delete code
       end
     end
@@ -92,12 +92,13 @@ end
 
 desc 'Build Tamzen fonts for Powerline.'
 task :powerline => [:tamzen, 'bitmap-font-patcher'] do
+  rename = [/Tamzen/, '\&ForPowerline']
   FileList['Tamzen[0-9]*.bdf'].each do |src|
+    dst = src.sub(*rename)
     IO.popen('python bitmap-font-patcher/fontpatcher.py', 'w+') do |patcher|
-      rename = [/Tamzen/, '\&ForPowerline']
       patcher.write File.read(src).gsub(*rename).gsub('ISO8859', 'ISO10646')
       patcher.close_write
-      File.write src.sub(*rename), patcher.read
+      File.write dst, Font.new(dst, patcher.read)
     end
   end
 end
