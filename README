@@ -8,7 +8,17 @@
 Monospaced Programming Font for Linux and Windows
 --------------------------------------------------------------------------------
 
-VERSION 1.10 2013-09-17
+VERSION 1.11 2015-01-21
+
+CHANGES IN 1.11
+
+  Changed capital "A" to be less pointy, more consistent between sizes.
+  Expecting hate mail.
+
+  Previously, unimplemented chars defaulted to print a blank space under X.
+  Now those chars are not placed in the font at all in order to allow
+  fontconfig to fall back to use a char from another font.  (Thanks, Allen,
+  for pointing this out and testing the fix.)
 
 CHANGES IN 1.10
 
