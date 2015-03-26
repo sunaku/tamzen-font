@@ -44,51 +44,103 @@ class Font < Struct.new(:file, :props, :chars)
   end
 end
 
-TAMZEN_FONT_BACKPORTS = [
-  # backport the given GLYPH at the given WEIGHT FROM the given versions (try
-  # them, in sequence, until the specified glyph is found) INTO the given font
-# { glyph: 'S', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
-  { glyph: 'U', weight: /Medium/, from: ['v1.6-derived', 'v1.6'], into: // },
-# { glyph: 'f', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
-  { glyph: 'g', weight: /Bold/,   from: ['v1.6-derived', 'v1.6'], into: // },
-  { glyph: 'g', weight: /Medium/, from: ['v1.6-derived', 'v1.6'], into: // },
-  { glyph: 'h', weight: /Medium/, from: ['v1.6-derived', 'v1.6'], into: // },
-  { glyph: 'm', weight: /Medium/, from: ['v1.6-derived', 'v1.6'], into: // },
-  { glyph: 'l', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
-  { glyph: 'w', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
-  { glyph: 'y', weight: //,       from: ['v1.6-derived', 'v1.6'], into: // },
-]
+# Font files are looked up in the specified named git trees.
+TAMZEN_BACKPORT_TREES = %w[ v1.6 v1.6-derived v1.9 ]
+
+# For each font filename regexp, the specified names are substituted.
+TAMZEN_BACKPORT_MOVES = {
+  /8x16/ => '8x17',
+  /7x13/ => '7x12',
+}
+
+# For each font filename regexp, the specified glyphs are backported.
+TAMZEN_BACKPORT_SPECS = {
+  # A B C D E F G H I J K L M N O P Q R S T U V W X Y Z   1 2 3 4 5
+  # a b c d e f g h i j k l m n o p q r s t u v w x y z   6 7 8 9 0
+  # { } [ ] ( ) < > $ * - + = / # _ % ^ @ \ & | ~ ? ' " ` ! , . ; :
+
+  /(?#for-all-fonts)/ => %w[
+
+      b           h       l m n   p q               y
+
+  ],
+
+  /10x20/ => %w[
+
+                                O   Q
+    a b c d e   g h   j   l m n o p q r     u   w   y
+
+  ],
+
+  /8x16/ => %w[
+
+                                O   Q
+    a b   d     g h       l m n   p q r     u   w   y
+
+  ],
+
+  /8x15/ => %w[
+
+      b   d       h       l m n   p q r     u   w   y
+
+  ],
+
+  /7x14/ => %w[
+
+      b           h     k l m n   p q   s           y
+
+  ],
+
+  /7x13/ => %w[
+
+      b           h       l m n   p q           w   y
+
+  ],
+}
 
 desc 'Build Tamzen fonts.'
 task :tamzen do
   require 'git'
   git = Git.open('.')
-  git.gtree('v1.9').blobs.each do |file, blob|
-    if file.end_with? '.bdf'
-      font = Font.new(file, blob.contents)
 
-      # backport characters from older versions of the font
-      TAMZEN_FONT_BACKPORTS.each do |backport|
-        if font.file =~ backport[:into]
-          code = backport[:glyph].ord
-          if font.props['WEIGHT_NAME'] =~ backport[:weight]
-            backport[:from].any? do |version|
-              if old_blob = git.gtree(version).blobs[font.file]
-                old_font = Font.new(font.file, old_blob.contents)
-                if old_char = old_font.chars[code]
-                  font.chars[code] = old_char
-                  true
-                end
-              end
-            end or warn "#{font.file} backport failed: #{backport}"
-          end
-        end
-      end
-
-      # output the modified font under a different name
-      rename = ['Tamsyn', 'Tamzen']
-      File.write font.file.sub(*rename), font.to_s.gsub(*rename)
+  # cache to speed up font lookups in loops below
+  font_by_tree_and_file = Hash.new do |cache, key|
+    tree, file = key
+    if blob = git.gtree(tree).blobs[file]
+      cache[key] = Font.new(file, blob.contents)
     end
+  end
+
+  # target the newest available Tamsyn release tag
+  tags = git.tags.map(&:name).sort_by {|s| s.split(/[v.]/).map(&:to_i) }
+  target_tag = tags.last
+
+  # for each BDF font in the target release tag...
+  git.gtree(target_tag).blobs.keys.grep(/\.bdf$/).each do |target_file|
+    target_font = font_by_tree_and_file[[target_tag, target_file]]
+    source_files = TAMZEN_BACKPORT_MOVES.map {|k,v| target_file.sub(k,v) }.
+                   unshift(target_file).uniq
+
+    # backport glyphs from previous font versions
+    backport_glyphs = TAMZEN_BACKPORT_SPECS.
+      select {|regexp, _| regexp =~ target_file }.
+      map {|_, glyphs| glyphs }.flatten.uniq.sort
+
+    backport_glyphs.all? do |glyph|
+      codepoint = glyph.ord
+
+      TAMZEN_BACKPORT_TREES.any? do |tree|
+        source_files.any? do |file|
+          source_font = font_by_tree_and_file[[tree, file]] and
+          source_char = source_font.chars[codepoint] and
+          target_font.chars[codepoint] = source_char # backport!
+        end
+      end or warn "#{target_file}: glyph #{glyph.inspect} (#{codepoint}) not found"
+    end or warn "#{target_file}: not all glyphs were backported; see errors above"
+
+    # save backported font under a different name
+    rename = ['Tamsyn', 'Tamzen']
+    File.write target_file.sub(*rename), target_font.to_s.gsub(*rename)
   end
 end
 
