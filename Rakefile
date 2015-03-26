@@ -1,19 +1,18 @@
 require 'tempfile'
 require 'rake/clean'
 
-task :default => :screenshots
-CLOBBER.include 'fonts.dir', '*.bdf'
-CLEAN.include '*.png'
+task 'default' => '.screenshots'
 
 #-----------------------------------------------------------------------------
 # index
 #-----------------------------------------------------------------------------
 
-file 'fonts.dir' => [:tamzen, :powerline] do
+file 'fonts.dir' => ['.tamzen', '.powerline'] do
   sh 'mkfontdir'
   sh 'xset', '+fp', Dir.pwd
   sh 'xset', 'fp', 'rehash'
 end
+CLOBBER.include 'fonts.dir'
 
 #-----------------------------------------------------------------------------
 # fonts
@@ -99,7 +98,7 @@ TAMZEN_BACKPORT_SPECS = {
 }
 
 desc 'Build Tamzen fonts.'
-task :tamzen do
+file '.tamzen' => __FILE__ do
   require 'git'
   git = Git.open('.')
 
@@ -142,12 +141,15 @@ task :tamzen do
     rename = ['Tamsyn', 'Tamzen']
     File.write target_file.sub(*rename), target_font.to_s.gsub(*rename)
   end
+
+  touch '.tamzen'
 end
+CLOBBER.include '.tamzen', '*.bdf'
 
 desc 'Build Tamzen fonts for Powerline.'
-task :powerline => [:tamzen, 'bitmap-font-patcher'] do
+file '.powerline' => ['.tamzen', 'bitmap-font-patcher'] do
   rename = [/Tamzen/, '\&ForPowerline']
-  FileList['Tamzen[0-9]*.bdf'].each do |src|
+  FileList['*.bdf'].exclude('*ForPowerline*').each do |src|
     dst = src.sub(*rename)
     IO.popen('python bitmap-font-patcher/fontpatcher.py', 'w+') do |patcher|
       patcher.write File.read(src).gsub(*rename).gsub('ISO8859', 'ISO10646')
@@ -155,7 +157,9 @@ task :powerline => [:tamzen, 'bitmap-font-patcher'] do
       File.write dst, Font.new(dst, patcher.read)
     end
   end
+  touch '.powerline'
 end
+CLOBBER.include '.powerline'
 
 file 'bitmap-font-patcher' do
   sh 'hg', 'clone', 'https://bitbucket.org/ZyX_I/bitmap-font-patcher'
@@ -166,11 +170,13 @@ end
 #-----------------------------------------------------------------------------
 
 desc 'Build font preview screenshots.'
-task :screenshots => 'fonts.dir' do
+file '.screenshots' => 'fonts.dir' do
   FileList['*.bdf'].ext('png').each do |png|
     Rake::Task[png].invoke
   end
+  touch '.screenshots'
 end
+CLEAN.include '.screenshots', '*.png'
 
 rule '.png' => ['.bdf', 'fonts.dir'] do |t|
   # translate the BDF font filename into its full X11 font name
