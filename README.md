@@ -1,6 +1,8 @@
 Tamzen font
 ===========
 
+![Screenshot](https://github.com/sunaku/tamzen-font/raw/master/README.png)
+
 This is [my personal fork][1] of the wonderful [Tamsyn font by Scott Fial][2].
 
 It is programatically forked from Tamsyn version 1.11 by the `Rakefile` script
