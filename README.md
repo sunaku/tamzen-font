@@ -191,7 +191,7 @@ Requirements for [bitmap-font-patcher][6]:
 
 ```sh
 sudo apt-get install python python-fontforge python-pip python-dev libfreetype6-dev
-pip install --user git+git://gitorious.org/bdflib/mainline.git
+pip install --user bdflib
 pip install --user Pillow
 ```
 
