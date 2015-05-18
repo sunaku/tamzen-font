@@ -75,6 +75,9 @@ Screenshots
 Installation
 ------------
 
+NOTE: [Arch Linux](https://www.archlinux.org) users may also install this font
+through [this AUR package](https://aur.archlinux.org/packages.php?ID=57298).
+
 Copy the `Tamzen*.bdf` files into your `~/.fonts` directory and run:
 
     mkfontdir ~/.fonts
