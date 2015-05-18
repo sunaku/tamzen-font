@@ -115,7 +115,7 @@ see its effect.  Afterwards, you can add this snippet to your ~/.Xdefaults or
 ### URxvt integration
 
 The following aliases let you dynamically switch between the various Tamzen
-fonts when run inside a shell that is attached to [the URxvt terminal][3].
+fonts when run inside a shell that is attached to [the URxvt terminal][4].
 
 ```sh
 alias font="printf '\e]710;%s\007'"
@@ -213,7 +213,7 @@ Distributed under the same terms as the Tamsyn font.  See `LICENSE` file.
 
 [1]: http://snk.tuxfamily.org/log/tamsyn-1.7b-review.html
 [2]: http://www.fial.com/~scott/tamsyn-font/
-[3]: http://software.schmorp.de/pkg/rxvt-unicode.html
-[4]: http://invisible-island.net/xterm/
+[3]: http://invisible-island.net/xterm/
+[4]: http://software.schmorp.de/pkg/rxvt-unicode.html
 [5]: https://powerline.readthedocs.org/en/master/overview.html#screenshots
 [6]: https://bitbucket.org/ZyX_I/bitmap-font-patcher
