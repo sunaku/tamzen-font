@@ -7,12 +7,13 @@ task 'default' => ['.screenshots', '.fontforge']
 # index
 #-----------------------------------------------------------------------------
 
-file 'fonts.dir' => ['.tamzen', '.powerline'] do
-  sh 'mkfontdir'
-  sh 'xset', '+fp', Dir.pwd
+directory 'bdf'
+file 'bdf/fonts.dir' => ['bdf', '.tamzen', '.powerline'] do
+  sh 'mkfontdir', 'bdf'
+  sh 'xset', '+fp', File.expand_path('bdf')
   sh 'xset', 'fp', 'rehash'
 end
-CLOBBER.include 'fonts.dir'
+CLOBBER.include 'bdf'
 
 #-----------------------------------------------------------------------------
 # fonts
@@ -98,7 +99,7 @@ TAMZEN_BACKPORT_SPECS = {
 }
 
 desc 'Build Tamzen fonts.'
-file '.tamzen' => __FILE__ do
+file '.tamzen' => ['bdf', __FILE__] do
   require 'git'
   git = Git.open('.')
 
@@ -139,17 +140,18 @@ file '.tamzen' => __FILE__ do
 
     # save backported font under a different name
     rename = ['Tamsyn', 'Tamzen']
-    File.write target_file.sub(*rename), target_font.to_s.gsub(*rename)
+    dst = File.join('bdf', target_file.sub(*rename))
+    File.write dst, target_font.to_s.gsub(*rename)
   end
 
   touch '.tamzen'
 end
-CLOBBER.include '.tamzen', '*.bdf'
+CLOBBER.include '.tamzen'
 
 desc 'Build Tamzen fonts for Powerline.'
 file '.powerline' => ['.tamzen', 'bitmap-font-patcher'] do
   rename = [/Tamzen/, '\&ForPowerline']
-  FileList['*.bdf'].exclude('*ForPowerline*').each do |src|
+  FileList['bdf/*.bdf'].exclude('bdf/*ForPowerline*').each do |src|
     dst = src.sub(*rename)
     IO.popen('python bitmap-font-patcher/fontpatcher.py', 'w+') do |patcher|
       patcher.write File.read(src).gsub(*rename).gsub('ISO8859', 'ISO10646')
@@ -181,7 +183,7 @@ FONTFORGE_FORMATS = [
 end
 
 FONTFORGE_COMMANDS = ['Open($1)'] + FONTFORGE_FORMATS.map do |format|
-  "Generate(#{(format + '/').inspect} + $1:r + #{('.' + format).inspect})"
+  "Generate(#{(format + '/').inspect} + $1:t:r + #{('.' + format).inspect})"
 end
 
 desc 'Build Tamzen fonts for other platforms.'
@@ -189,7 +191,7 @@ file '.fontforge' => ['.tamzen', '.powerline'] + FONTFORGE_FORMATS do
   Tempfile.open(['fontforge', '.pe']) do |script|
     script.puts FONTFORGE_COMMANDS
     script.close
-    FileList['*.bdf'].each do |src|
+    FileList['bdf/*.bdf'].each do |src|
       sh 'fontforge', '-script', script.path, src
     end
   end
@@ -201,18 +203,24 @@ CLOBBER.include '.fontforge', *FONTFORGE_FORMATS
 # screenshots
 #-----------------------------------------------------------------------------
 
+directory 'png'
 desc 'Build font preview screenshots.'
-file '.screenshots' => 'fonts.dir' do
-  FileList['*.bdf'].ext('png').each do |png|
-    Rake::Task[png].invoke
+file '.screenshots' => ['bdf/fonts.dir'] do
+  FileList['bdf/*.bdf'].each do |bdf|
+    Rake::Task[bdf.sub('bdf', 'png').ext('png')].invoke
   end
   touch '.screenshots'
 end
-CLEAN.include '.screenshots', '*.png'
+CLEAN.include '.screenshots', 'png'
 
-rule '.png' => ['.bdf', 'fonts.dir'] do |t|
+rule %r{^png/.+\.png$} => [->(png){ png.sub('png', 'bdf').ext('bdf') }, 'png',
+                           'bdf/fonts.dir'] do |t|
+
+  src = File.basename(t.source)
+  dst = t.name
+
   # translate the BDF font filename into its full X11 font name
-  @bdf_to_x11 ||= Hash[File.readlines('fonts.dir').map(&:split)]
+  @bdf_to_x11 ||= Hash[File.readlines('bdf/fonts.dir').map(&:split)]
 
   # assemble sample text for rendering
   lines = [
@@ -226,7 +234,7 @@ rule '.png' => ['.bdf', 'fonts.dir'] do |t|
     "Illegal1i = oO0    \uE0A0 \uE0A1 \uE0A2 \uE0B0 \uE0B1 \uE0B2 \uE0B3"
   ]
   width = lines.first.length
-  lines.unshift t.source.center(width)
+  lines.unshift src.center(width)
 
   # store sample text in a file because it's the easiest way to render
   sample_text_file = Tempfile.open('screenshot')
@@ -237,12 +245,12 @@ rule '.png' => ['.bdf', 'fonts.dir'] do |t|
   sh 'xterm',
     '-fg', 'black',
     '-bg', 'white',
-    '-T', t.source,
-    '-font', @bdf_to_x11[t.source],
+    '-T', src,
+    '-font', @bdf_to_x11[src],
     '-geometry', "#{lines.first.length}x#{lines.length}",
     '-e', [
       'tput civis',                                 # hide the cursor
       "cat #{sample_text_file.path.inspect}",       # show sample text
-      "import -window $WINDOWID #{t.name.inspect}", # take a screenshot
+      "import -window $WINDOWID #{dst.inspect}", # take a screenshot
     ].join(' && ')
 end
