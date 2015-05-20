@@ -1,7 +1,7 @@
 require 'tempfile'
 require 'rake/clean'
 
-task 'default' => '.screenshots'
+task 'default' => ['.screenshots', '.fontforge']
 
 #-----------------------------------------------------------------------------
 # index
@@ -164,6 +164,38 @@ CLOBBER.include '.powerline'
 file 'bitmap-font-patcher' do
   sh 'hg', 'clone', 'https://bitbucket.org/ZyX_I/bitmap-font-patcher'
 end
+
+FONTFORGE_FORMATS = [
+  'dfont',    # Apple bitmap only sfnt (dfont)
+  'ttf',      # (faked) MS bitmap only sfnt (ttf)
+  'otb',      # X11 bitmap only sfnt (otb)
+  'bmap.bin', # NFNT (MacBin)
+  'fon',      # Win FON
+  'fnt',      # Win FNT
+  'pdb',      # Palm OS Bitmap
+  'pt3',      # PS Type3 Bitmap
+].each do |format|
+  # these non-Linux formats make `xset fp rehash` crash!
+  # so stow them away into their own separate subfolders
+  directory format
+end
+
+FONTFORGE_COMMANDS = ['Open($1)'] + FONTFORGE_FORMATS.map do |format|
+  "Generate(#{(format + '/').inspect} + $1:r + #{('.' + format).inspect})"
+end
+
+desc 'Build Tamzen fonts for other platforms.'
+file '.fontforge' => ['.tamzen', '.powerline'] + FONTFORGE_FORMATS do
+  Tempfile.open(['fontforge', '.pe']) do |script|
+    script.puts FONTFORGE_COMMANDS
+    script.close
+    FileList['*.bdf'].each do |src|
+      sh 'fontforge', '-script', script.path, src
+    end
+  end
+  touch '.fontforge'
+end
+CLOBBER.include '.fontforge', *FONTFORGE_FORMATS
 
 #-----------------------------------------------------------------------------
 # screenshots

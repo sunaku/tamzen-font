@@ -75,6 +75,17 @@ Screenshots
 Installation
 ------------
 
+NOTE: For non-Linux platforms, try using the font files in these subfolders:
+
+ * `dfont/`    - Apple bitmap only sfnt (dfont)
+ * `ttf/`      - (faked) MS bitmap only sfnt (ttf)
+ * `otb/`      - X11 bitmap only sfnt (otb)
+ * `bmap.bin/` - NFNT (MacBin)
+ * `fon/`      - Win FON
+ * `fnt/`      - Win FNT
+ * `pdb/`      - Palm OS Bitmap
+ * `pt3/`      - PS Type3 Bitmap
+
 NOTE: [Arch Linux](https://www.archlinux.org) users may also install this font
 through [this AUR package](https://aur.archlinux.org/packages.php?ID=57298).
 
@@ -196,6 +207,12 @@ Requirements for [bitmap-font-patcher][6]:
 sudo apt-get install python python-fontforge python-pip python-dev libfreetype6-dev
 pip install --user bdflib
 pip install --user Pillow
+```
+
+Requirements for non-Linux font formats:
+
+```sh
+sudo apt-get install fontforge
 ```
 
 ### Procedure
