@@ -1,7 +1,7 @@
 require 'tempfile'
 require 'rake/clean'
 
-task 'default' => ['.screenshots', '.fontforge']
+task 'default' => %w[ .tamzen .powerline .console .fontforge .screenshots ]
 
 #-----------------------------------------------------------------------------
 # index
@@ -166,6 +166,20 @@ CLOBBER.include '.powerline'
 file 'bitmap-font-patcher' do
   sh 'hg', 'clone', 'https://bitbucket.org/ZyX_I/bitmap-font-patcher'
 end
+
+directory 'pcf'
+desc 'Build Tamzen fonts for Linux console.'
+file '.console' => ['pcf', '.tamzen', '.powerline'] do
+  FileList['bdf/*.bdf'].each do |src|
+    dst = src.gsub('bdf', 'pcf')
+    IO.popen(['bdftopcf', src], 'w+') do |converter|
+      converter.close_write
+      File.write dst, converter.read
+    end
+  end
+  touch '.console'
+end
+CLOBBER.include '.console'
 
 FONTFORGE_FORMATS = [
   'dfont',    # Apple bitmap only sfnt (dfont)

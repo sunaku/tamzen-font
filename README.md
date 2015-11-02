@@ -96,6 +96,8 @@ through [this AUR package](https://aur.archlinux.org/packages.php?ID=57298).
 
 Now you should be able to access the "Tamzen" font family in xfontsel.
 
+NOTE: You can also use the `pcf/` fonts in your Linux console (VT).
+
 [Download]: https://github.com/sunaku/tamzen-font/archive/master.zip
 
 ### XTerm integration
@@ -198,10 +200,11 @@ You can build the Tamzen fonts for yourself by following this procedure.
 ### Requirements
 
 ```sh
-sudo apt-get install ruby git imagemagick mercurial
+sudo apt-get install ruby git imagemagick mercurial bdftopcf
 gem install bundler
 bundle install
 ```
+
 Requirements for [bitmap-font-patcher][6]:
 
 ```sh
