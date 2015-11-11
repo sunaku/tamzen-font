@@ -16,61 +16,61 @@ which are programatically injected with [ZyX_I's bitmap-font-patcher][6].
 Screenshots
 -----------
 
-### Tamzen-9
-![Tamzen5x9r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen5x9r.png)
-![Tamzen5x9b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen5x9b.png)
-
-### Tamzen-12
-![Tamzen6x12r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen6x12r.png)
-![Tamzen6x12b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen6x12b.png)
-
-### Tamzen-13
-![Tamzen7x13r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen7x13r.png)
-![Tamzen7x13b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen7x13b.png)
-
-### Tamzen-14
-![Tamzen7x14r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen7x14r.png)
-![Tamzen7x14b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen7x14b.png)
-
-### Tamzen-15
-![Tamzen8x15r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen8x15r.png)
-![Tamzen8x15b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen8x15b.png)
-
-### Tamzen-16
-![Tamzen8x16r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen8x16r.png)
-![Tamzen8x16b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen8x16b.png)
-
-### Tamzen-20
-![Tamzen10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen10x20r.png)
-![Tamzen10x20b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen10x20b.png)
-
-### TamzenForPowerline-9
-![TamzenForPowerline5x9r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline5x9r.png)
-![TamzenForPowerline5x9b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline5x9b.png)
-
-### TamzenForPowerline-12
-![TamzenForPowerline6x12r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline6x12r.png)
-![TamzenForPowerline6x12b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline6x12b.png)
-
-### TamzenForPowerline-13
-![TamzenForPowerline7x13r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline7x13r.png)
-![TamzenForPowerline7x13b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline7x13b.png)
-
-### TamzenForPowerline-14
-![TamzenForPowerline7x14r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline7x14r.png)
-![TamzenForPowerline7x14b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline7x14b.png)
-
-### TamzenForPowerline-15
-![TamzenForPowerline8x15r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline8x15r.png)
-![TamzenForPowerline8x15b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline8x15b.png)
+### TamzenForPowerline-20
+![TamzenForPowerline10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline10x20r.png)
+![TamzenForPowerline10x20b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline10x20b.png)
 
 ### TamzenForPowerline-16
 ![TamzenForPowerline8x16r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline8x16r.png)
 ![TamzenForPowerline8x16b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline8x16b.png)
 
-### TamzenForPowerline-20
-![TamzenForPowerline10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline10x20r.png)
-![TamzenForPowerline10x20b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline10x20b.png)
+### TamzenForPowerline-15
+![TamzenForPowerline8x15r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline8x15r.png)
+![TamzenForPowerline8x15b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline8x15b.png)
+
+### TamzenForPowerline-14
+![TamzenForPowerline7x14r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline7x14r.png)
+![TamzenForPowerline7x14b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline7x14b.png)
+
+### TamzenForPowerline-13
+![TamzenForPowerline7x13r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline7x13r.png)
+![TamzenForPowerline7x13b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline7x13b.png)
+
+### TamzenForPowerline-12
+![TamzenForPowerline6x12r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline6x12r.png)
+![TamzenForPowerline6x12b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline6x12b.png)
+
+### TamzenForPowerline-9
+![TamzenForPowerline5x9r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline5x9r.png)
+![TamzenForPowerline5x9b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline5x9b.png)
+
+### Tamzen-20
+![Tamzen10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen10x20r.png)
+![Tamzen10x20b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen10x20b.png)
+
+### Tamzen-16
+![Tamzen8x16r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen8x16r.png)
+![Tamzen8x16b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen8x16b.png)
+
+### Tamzen-15
+![Tamzen8x15r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen8x15r.png)
+![Tamzen8x15b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen8x15b.png)
+
+### Tamzen-14
+![Tamzen7x14r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen7x14r.png)
+![Tamzen7x14b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen7x14b.png)
+
+### Tamzen-13
+![Tamzen7x13r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen7x13r.png)
+![Tamzen7x13b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen7x13b.png)
+
+### Tamzen-12
+![Tamzen6x12r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen6x12r.png)
+![Tamzen6x12b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen6x12b.png)
+
+### Tamzen-9
+![Tamzen5x9r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen5x9r.png)
+![Tamzen5x9b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/Tamzen5x9b.png)
 
 Installation
 ------------
