@@ -260,11 +260,11 @@ rule %r{^png/.+\.png$} => [->(png){ png.sub('png', 'bdf').ext('bdf') }, 'png',
     '-fg', 'black',
     '-bg', 'white',
     '-T', src,
-    '-font', @bdf_to_x11[src],
+    '-font', @bdf_to_x11.fetch(src),
     '-geometry', "#{lines.first.length}x#{lines.length}",
     '-e', [
-      'tput civis',                                 # hide the cursor
-      "cat #{sample_text_file.path.inspect}",       # show sample text
+      'tput civis',                              # hide the cursor
+      "cat #{sample_text_file.path.inspect}",    # show sample text
       "import -window $WINDOWID #{dst.inspect}", # take a screenshot
     ].join(' && ')
 end
