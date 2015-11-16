@@ -172,10 +172,7 @@ desc 'Build Tamzen fonts for Linux console.'
 file '.console' => ['pcf', '.tamzen', '.powerline'] do
   FileList['bdf/*.bdf'].each do |src|
     dst = src.gsub('bdf', 'pcf')
-    IO.popen(['bdftopcf', src], 'w+') do |converter|
-      converter.close_write
-      File.write dst, converter.read
-    end
+    sh 'bdftopcf', '-o', dst, '-t', src
   end
   touch '.console'
 end
