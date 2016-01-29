@@ -87,7 +87,7 @@ NOTE: For non-Linux platforms, try using the font files in these subfolders:
  * `pt3/`      - PS Type3 Bitmap
 
 NOTE: [Arch Linux](https://www.archlinux.org) users may also install this font
-through [this AUR package](https://aur.archlinux.org/packages.php?ID=57298).
+through [this AUR package](https://aur.archlinux.org/packages/tamzen-font-git/).
 
 [Download] this Git repository to `~/.fonts/tamzen-font` and then run:
 
