@@ -162,9 +162,10 @@ file '.powerline' => ['.tamzen', 'bitmap-font-patcher'] do
         source_font
       else
         IO.popen('bitmap-font-patcher/fontpatcher.py', 'w+') do |patcher|
+          # XXX: patcher *only* operates on ISO10646 encoded fonts
           patcher.write File.read(src).gsub('ISO8859', 'ISO10646')
           patcher.close_write
-          Font.new(nil, patcher.read)
+          Font.new(nil, patcher.read.gsub('ISO10646', 'ISO8859'))
         end
       end
     File.write dst, target_font.to_s.gsub(*rename)
