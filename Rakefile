@@ -50,7 +50,6 @@ TAMZEN_BACKPORT_TREES = %w[ v1.6 v1.6-derived v1.9 ]
 # For each font filename regexp, the specified names are substituted.
 TAMZEN_BACKPORT_MOVES = {
   /8x16/ => '8x17',
-  /7x13/ => '7x12',
 }
 
 # For each font filename regexp, the specified glyphs are backported.
