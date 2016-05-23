@@ -187,7 +187,7 @@ file '.console' => ['pcf', '.tamzen', '.powerline'] do
   end
   touch '.console'
 end
-CLOBBER.include '.console'
+CLOBBER.include '.console', 'pcf'
 
 FONTFORGE_FORMATS = [
   'dfont',    # Apple bitmap only sfnt (dfont)
