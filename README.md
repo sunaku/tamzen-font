@@ -12,6 +12,12 @@ to allow secondary/fallback fonts to provide real glyphs at those codepoints.
 
 The "TamzenForPowerline" fonts provide additional [Powerline symbols][5],
 which are programatically injected with [ZyX_I's bitmap-font-patcher][6].
+I later hand-tweaked those symbols to perfection in the gbdfed(1) editor:
+
+* For all icons, I expanded them to occupy the maximum available space.
+* For the fork icon ( U+E0A0), I made the branch larger than the trunk.
+* For the newline icon ( U+E0A1), I made the "N" at the bottom larger.
+* For the padlock icon ( U+E0A2), I replaced the keyhole with // lines.
 
 Screenshots
 -----------

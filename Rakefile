@@ -13,7 +13,7 @@ file 'bdf/fonts.dir' => ['bdf', '.tamzen', '.powerline'] do
   sh 'xset', '+fp', File.expand_path('bdf')
   sh 'xset', 'fp', 'rehash'
 end
-CLOBBER.include 'bdf'
+CLOBBER.include 'bdf/Tamzen*.bdf'
 
 #-----------------------------------------------------------------------------
 # fonts
