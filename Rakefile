@@ -151,13 +151,23 @@ CLOBBER.include '.tamzen'
 desc 'Build Tamzen fonts for Powerline.'
 file '.powerline' => ['.tamzen', 'bitmap-font-patcher'] do
   rename = [/Tamzen/, '\&ForPowerline']
-  FileList['bdf/*.bdf'].exclude('bdf/*ForPowerline*').each do |src|
+  FileList['bdf/Tamzen*.bdf'].exclude('bdf/*Powerline*').each do |src|
     dst = src.sub(*rename)
-    IO.popen('python bitmap-font-patcher/fontpatcher.py', 'w+') do |patcher|
-      patcher.write File.read(src).gsub(*rename).gsub('ISO8859', 'ISO10646')
-      patcher.close_write
-      File.write dst, Font.new(dst, patcher.read)
-    end
+    target_font =
+      # backport powerline glyphs from existing BDF files or patch them in
+      if File.exist? powerline_file = "bdf/Powerline#{src[/\d+x\d+/]}.bdf"
+        source_font = Font.new(nil, File.read(src))
+        powerline_font = Font.new(nil, File.read(powerline_file))
+        source_font.chars.merge! powerline_font.chars # backport!
+        source_font
+      else
+        IO.popen('bitmap-font-patcher/fontpatcher.py', 'w+') do |patcher|
+          patcher.write File.read(src).gsub('ISO8859', 'ISO10646')
+          patcher.close_write
+          Font.new(nil, patcher.read)
+        end
+      end
+    File.write dst, target_font.to_s.gsub(*rename)
   end
   touch '.powerline'
 end
@@ -170,7 +180,7 @@ end
 directory 'pcf'
 desc 'Build Tamzen fonts for Linux console.'
 file '.console' => ['pcf', '.tamzen', '.powerline'] do
-  FileList['bdf/*.bdf'].each do |src|
+  FileList['bdf/Tamzen*.bdf'].each do |src|
     dst = src.gsub('bdf', 'pcf')
     sh 'bdftopcf', '-o', dst, '-t', src
   end
@@ -202,7 +212,7 @@ file '.fontforge' => ['.tamzen', '.powerline'] + FONTFORGE_FORMATS do
   Tempfile.open(['fontforge', '.pe']) do |script|
     script.puts FONTFORGE_COMMANDS
     script.close
-    FileList['bdf/*.bdf'].each do |src|
+    FileList['bdf/Tamzen*.bdf'].each do |src|
       sh 'fontforge', '-script', script.path, src
     end
   end
@@ -217,7 +227,7 @@ CLOBBER.include '.fontforge', *FONTFORGE_FORMATS
 directory 'png'
 desc 'Build font preview screenshots.'
 file '.screenshots' => ['bdf/fonts.dir'] do
-  FileList['bdf/*.bdf'].each do |bdf|
+  FileList['bdf/Tamzen*.bdf'].each do |bdf|
     Rake::Task[bdf.sub('bdf', 'png').ext('png')].invoke
   end
   touch '.screenshots'
