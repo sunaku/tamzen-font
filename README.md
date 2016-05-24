@@ -84,9 +84,7 @@ Installation
 NOTE: For non-Linux platforms, try using the font files in these subfolders:
 
  * `dfont/`    - Apple bitmap only sfnt (dfont)
- * `ttf/`      - (faked) MS bitmap only sfnt (ttf)
  * `otb/`      - X11 bitmap only sfnt (otb)
- * `bmap.bin/` - NFNT (MacBin)
  * `fon/`      - Win FON
  * `fnt/`      - Win FNT
  * `pdb/`      - Palm OS Bitmap
