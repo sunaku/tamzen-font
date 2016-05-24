@@ -102,9 +102,21 @@ through [this AUR package](https://aur.archlinux.org/packages/tamzen-font-git/).
 
 Now you should be able to access the "Tamzen" font family in xfontsel.
 
-NOTE: You can also use the `pcf/` fonts in your Linux console (VT).
-
 [Download]: https://github.com/sunaku/tamzen-font/archive/master.zip
+
+### Linux VT integration
+
+1. Switch to a Linux VT (virtual terminal) by pressing Control-Alt-F1.
+
+2. Run `showconsolefont` to see how the character map currently looks.
+
+3. Run `setfont ~/.fonts/tamzen-font/psf/TamzenForPowerline10x20.psf`.
+
+4. See how the character map now displays glyphs from the Tamzen font.
+
+5. Try running `setfont` with other Tamzen fonts in the `psf/` folder.
+
+See <https://wiki.archlinux.org/index.php/Fonts#Console_fonts> for details.
 
 ### XTerm integration
 
@@ -206,7 +218,7 @@ You can build the Tamzen fonts for yourself by following this procedure.
 ### Requirements
 
 ```sh
-sudo apt-get install ruby git imagemagick mercurial bdftopcf
+sudo apt-get install ruby git imagemagick mercurial bdftopcf bdf2psf
 gem install bundler
 bundle install
 ```

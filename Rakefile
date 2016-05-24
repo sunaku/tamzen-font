@@ -1,7 +1,14 @@
 require 'tempfile'
 require 'rake/clean'
 
-task 'default' => %w[ .tamzen .powerline .console .fontforge .screenshots ]
+task 'default' => %w[
+  .tamzen
+  .powerline
+  .console
+  .portable
+  .fontforge
+  .screenshots
+]
 
 #-----------------------------------------------------------------------------
 # index
@@ -177,16 +184,35 @@ file 'bitmap-font-patcher' do
   sh 'hg', 'clone', 'https://bitbucket.org/ZyX_I/bitmap-font-patcher'
 end
 
+directory 'psf'
+desc 'Build Tamzen fonts for the Linux Console (VT).'
+file '.console' => ['psf', '.tamzen', '.powerline'] do
+  share = '/usr/share/bdf2psf'
+  FileList['bdf/Tamzen*.bdf'].sort.each_slice(2) do |bold, regular|
+    dst = regular.gsub('bdf', 'psf').sub(/r(?=\.psf$)/, '')
+    Tempfile.open('symbols') do |symbols_file|
+      symbols = File.read(regular).scan(/^STARTCHAR (\S+)$/)
+      symbols_file.puts symbols
+      symbols_file.close
+      sh 'bdf2psf', '--fb', "#{regular}+#{bold}",
+        "#{share}/standard.equivalents",
+        symbols_file.path, symbols.length.to_s, dst
+    end
+  end
+  touch '.console'
+end
+CLOBBER.include '.console', 'psf'
+
 directory 'pcf'
-desc 'Build Tamzen fonts for Linux console.'
-file '.console' => ['pcf', '.tamzen', '.powerline'] do
+desc 'Build Tamzen fonts in Portable Compiled Format.'
+file '.portable' => ['pcf', '.tamzen', '.powerline'] do
   FileList['bdf/Tamzen*.bdf'].each do |src|
     dst = src.gsub('bdf', 'pcf')
     sh 'bdftopcf', '-o', dst, '-t', src
   end
   touch '.console'
 end
-CLOBBER.include '.console', 'pcf'
+CLOBBER.include '.portable', 'pcf'
 
 FONTFORGE_FORMATS = [
   'dfont',    # Apple bitmap only sfnt (dfont)
