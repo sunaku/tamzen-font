@@ -272,11 +272,9 @@ rule %r{^png/.+\.png$} => [->(png){ png.sub('png', 'bdf').ext('bdf') }, 'png',
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345',
     'abcdefghijklmnopqrstuvwxyz 67890',
     '{}[]()<>$*-+=/#_%^@\\&|~?\'"`!,.;:',
-    #
-    # visit the following URL for Unicode code points of powerline symbols
-    # https://powerline.readthedocs.org/en/latest/fontpatching.html#glyph-table
-    #
-    "Illegal1i = oO0    \uE0A0 \uE0A1 \uE0A2 \uE0B0 \uE0B1 \uE0B2 \uE0B3"
+    'Illegal1i = oO0          ',
+    'The quick brown fox, (..) Hello,',
+    'jumps over lazy dog. /__\ World!',
   ]
   width = lines.first.length
   lines.unshift src.center(width)
