@@ -4,7 +4,6 @@ Tamzen font
 ![Screenshot](https://github.com/sunaku/tamzen-font/raw/master/README.png)
 
 This is [my personal fork][1] of the wonderful [Tamsyn font by Scott Fial][2].
-
 It is programatically forked from Tamsyn version 1.11 by the `Rakefile` script
 (see the "Building" section below) which backports glyphs from older versions
 while deleting deliberately empty glyphs (which are marked as unimplemented)
@@ -81,26 +80,29 @@ Screenshots
 Installation
 ------------
 
-NOTE: For non-Linux platforms, try using the font files in these subfolders:
+In Arch Linux:
 
- * `dfont/`    - Apple bitmap only sfnt (dfont)
- * `otb/`      - X11 bitmap only sfnt (otb)
- * `fon/`      - Win FON
- * `fnt/`      - Win FNT
- * `pdb/`      - Palm OS Bitmap
- * `pt3/`      - PS Type3 Bitmap
+* Install [from the AUR](https://aur.archlinux.org/packages/tamzen-font-git/).
 
-NOTE: [Arch Linux](https://www.archlinux.org) users may also install this font
-through [this AUR package](https://aur.archlinux.org/packages/tamzen-font-git/).
+On any Linux:
 
-[Download] this Git repository to `~/.fonts/tamzen-font` and then run:
+* [Download] or clone this repository to `~/.fonts/tamzen-font` and run:
+  [Download]: https://github.com/sunaku/tamzen-font/archive/master.zip
 
-    xset +fp ~/.fonts/tamzen-font/bdf
-    xset fp rehash
+        xset +fp ~/.fonts/tamzen-font/bdf
+        xset fp rehash
 
-Now you should be able to access the "Tamzen" font family in xfontsel.
+* You should now be able to see the "Tamzen" font family in `xfontsel`.
 
-[Download]: https://github.com/sunaku/tamzen-font/archive/master.zip
+Other platforms:
+
+* Try using the font files in these subfolders:
+  * `dfont/` - Apple bitmap only sfnt (dfont)
+  * `otb/`   - X11 bitmap only sfnt (otb)
+  * `fon/`   - Win FON
+  * `fnt/`   - Win FNT
+  * `pdb/`   - Palm OS Bitmap
+  * `pt3/`   - PS Type3 Bitmap
 
 ### Linux VT integration
 
@@ -211,7 +213,13 @@ alias TamzenForPowerline10x20b='font -misc-tamzenforpowerline-bold-r-normal--20-
 Building
 --------
 
-You can build the Tamzen fonts for yourself by following this procedure.
+You can build the Tamzen fonts for yourself by running these commands:
+
+```sh
+bundle exec rake                 # build things only when necessary
+bundle exec rake clobber         # destroy everything that we built
+bundle exec rake clobber default # rebuild everything from scratch
+```
 
 ### Requirements
 
@@ -235,20 +243,12 @@ Requirements for non-Linux font formats:
 sudo apt-get install fontforge
 ```
 
-### Procedure
-
-```sh
-bundle exec rake                 # build things only when necessary
-bundle exec rake clobber         # destroy everything that we built
-bundle exec rake clobber default # rebuild everything from scratch
-```
-
 License
 -------
 
 Distributed under the same terms as the Tamsyn font.  See `LICENSE` file.
 
-[1]: http://snk.tuxfamily.org/log/tamsyn-1.7b-review.html
+[1]: https://sunaku.github.io/tamsyn-1.7b-font-review.html
 [2]: http://www.fial.com/~scott/tamsyn-font/
 [3]: http://invisible-island.net/xterm/
 [4]: http://software.schmorp.de/pkg/rxvt-unicode.html
