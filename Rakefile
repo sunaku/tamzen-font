@@ -242,6 +242,16 @@ file '.fontforge' => ['.tamzen', '.powerline'] + FONTFORGE_FORMATS do
       sh 'fontforge', '-script', script.path, src
     end
   end
+
+  # make embedded font names in *.fnt unique
+  # so they don't overwrite each other when
+  # drag-dropped into Windows' fonts folder
+  FileList['fnt/*.fnt'].each do |fnt|
+    name, tag = fnt.pathmap('%n').sub(/-\d+$/, '').split(/(?=\d)/, 2)
+    unique = File.read(fnt, mode: 'rb').sub(/(?<=#{name})(?=\0\z)/, tag)
+    File.write fnt, unique
+  end
+
   touch '.fontforge'
 end
 CLOBBER.include '.fontforge', *FONTFORGE_FORMATS
