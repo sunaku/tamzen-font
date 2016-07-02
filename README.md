@@ -94,11 +94,14 @@ On any Linux:
 
 * You should now be able to see the "Tamzen" font family in `xfontsel`.
 
-Other platforms:
+In Microsoft Windows:
+
+* Drag and drop files from the `fnt/` folder into your Windows Fonts folder.
+
+On other platforms:
 
 * Try using the font files in these subfolders:
   * `dfont/` - Apple bitmap only sfnt (dfont)
-  * `fnt/`   - Win FNT
   * `pt3/`   - PS Type3 Bitmap
 
 ### Linux VT integration
