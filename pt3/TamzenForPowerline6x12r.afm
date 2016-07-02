@@ -11,7 +11,7 @@ IsFixedPitch false
 UnderlinePosition -100
 UnderlineThickness 50
 Version 001.000
-EncodingScheme ISOLatin1Encoding
+EncodingScheme ISO10646-1
 FontBBox 0 0 0 0
 StartCharMetrics 197
 C 0 ; WX 392 ; N U+0000 ; B 0 0 0 0 ;

@@ -165,6 +165,7 @@ file '.powerline' => ['.tamzen', 'bitmap-font-patcher'] do
         source_font = Font.new(nil, File.read(src))
         powerline_font = Font.new(nil, File.read(powerline_file))
         source_font.chars.merge! powerline_font.chars # backport!
+        source_font.props['CHARSET_REGISTRY'] = '"ISO10646"'
         source_font
       else
         IO.popen('bitmap-font-patcher/fontpatcher.py', 'w+') do |patcher|
