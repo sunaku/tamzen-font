@@ -99,7 +99,6 @@ Other platforms:
 * Try using the font files in these subfolders:
   * `dfont/` - Apple bitmap only sfnt (dfont)
   * `fnt/`   - Win FNT
-  * `pdb/`   - Palm OS Bitmap
   * `pt3/`   - PS Type3 Bitmap
 
 ### Linux VT integration
