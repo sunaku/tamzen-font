@@ -19,7 +19,9 @@ I later hand-tweaked those symbols to perfection in the gbdfed(1) editor:
 Screenshots
 -----------
 
-![Usage in Vim](https://github.com/sunaku/tamzen-font/raw/master/README.png)
+![man](https://sunaku.github.io/gruvbox-terminal-color-scheme-man.png)
+![tmux](https://sunaku.github.io/tmux-layout-dwindle.png)
+![vim](https://github.com/sunaku/tamzen-font/raw/master/README.png)
 
 ### TamzenForPowerline-20
 ![TamzenForPowerline10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline10x20r.png)
