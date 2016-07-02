@@ -52,7 +52,7 @@ class Font < Struct.new(:file, :props, :chars)
 end
 
 # Font files are looked up in the specified named git trees.
-TAMZEN_BACKPORT_TREES = %w[ v1.6 v1.6-derived v1.9 ]
+TAMZEN_BACKPORT_TREES = %w[ Tamsyn-1.6 Tamsyn-1.6-derived Tamsyn-1.9 ]
 
 # For each font filename regexp, the specified names are substituted.
 TAMZEN_BACKPORT_MOVES = {
@@ -118,7 +118,8 @@ file '.tamzen' => ['bdf', __FILE__] do
   end
 
   # target the newest available Tamsyn release tag
-  tags = git.tags.map(&:name).sort_by {|s| s.split(/[v.]/).map(&:to_i) }
+  tags = git.tags.map(&:name).grep(/^Tamsyn-/).
+    sort_by {|s| s.scan(/\d+/).map(&:to_i) }
   target_tag = tags.last
 
   # for each BDF font in the target release tag...
