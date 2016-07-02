@@ -86,8 +86,8 @@ In Arch Linux:
 
 On any Linux:
 
-* [Download] or clone this repository to `~/.fonts/tamzen-font` and run:
-  [Download]: https://github.com/sunaku/tamzen-font/archive/master.zip
+* [Download a release] or Git clone to `~/.fonts/tamzen-font` and run:
+  [Download a release]: https://github.com/sunaku/tamzen-font/releases
 
         xset +fp ~/.fonts/tamzen-font/bdf
         xset fp rehash
