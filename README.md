@@ -1,8 +1,6 @@
 Tamzen font
 ===========
 
-![Screenshot](https://github.com/sunaku/tamzen-font/raw/master/README.png)
-
 This is [my personal fork][1] of the wonderful [Tamsyn font by Scott Fial][2].
 It is programatically forked from Tamsyn version 1.11 by the `Rakefile` script
 (see the "Building" section below) which backports glyphs from older versions
@@ -20,6 +18,8 @@ I later hand-tweaked those symbols to perfection in the gbdfed(1) editor:
 
 Screenshots
 -----------
+
+![Usage in Vim](https://github.com/sunaku/tamzen-font/raw/master/README.png)
 
 ### TamzenForPowerline-20
 ![TamzenForPowerline10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline10x20r.png)
