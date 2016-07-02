@@ -219,7 +219,6 @@ CLOBBER.include '.portable', 'pcf'
 FONTFORGE_FORMATS = [
   'dfont',    # Apple bitmap only sfnt (dfont)
   'otb',      # X11 bitmap only sfnt (otb)
-  'fon',      # Win FON
   'fnt',      # Win FNT
   'pdb',      # Palm OS Bitmap
   'pt3',      # PS Type3 Bitmap
