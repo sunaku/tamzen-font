@@ -98,7 +98,6 @@ Other platforms:
 
 * Try using the font files in these subfolders:
   * `dfont/` - Apple bitmap only sfnt (dfont)
-  * `otb/`   - X11 bitmap only sfnt (otb)
   * `fnt/`   - Win FNT
   * `pdb/`   - Palm OS Bitmap
   * `pt3/`   - PS Type3 Bitmap
