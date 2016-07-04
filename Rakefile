@@ -145,6 +145,10 @@ file '.tamzen' => ['bdf', __FILE__] do
       end or warn "#{target_file}: glyph #{glyph.inspect} (#{codepoint}) not found"
     end or warn "#{target_file}: not all glyphs were backported; see errors above"
 
+    # ensure that BDF fonts play well with Unicode
+    target_font.props['CHARSET_REGISTRY'] = '"ISO10646"'
+    target_font.props['CHARSET_ENCODING'] = '"1"'
+
     # save backported font under a different name
     rename = ['Tamsyn', 'Tamzen']
     dst = File.join('bdf', target_file.sub(*rename))
