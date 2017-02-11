@@ -238,6 +238,14 @@ Requirements for non-Linux font formats:
 License
 -------
 
+> Like my work? :+1: Please [spare a life] today as thanks!
+> :cow::pig::chicken::fish::speak_no_evil::v::revolving_hearts:
+[spare a life]: https://sunaku.github.io/vegan-for-life.html
+
+Copyright 2011 Suraj N. Kurapati <https://github.com/sunaku>
+
+Copyright 2010 Scott Fial <http://www.fial.com/~scott/>
+
 Distributed under the same terms as the Tamsyn font.  See `LICENSE` file.
 
 [1]: https://sunaku.github.io/tamsyn-1.7b-font-review.html
