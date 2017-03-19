@@ -88,11 +88,11 @@ In Arch Linux:
 
 On any Linux:
 
-* [Download a release] or Git clone to `~/.fonts/tamzen-font` and run:
-  [Download a release]: https://github.com/sunaku/tamzen-font/releases
+* [Download a release]( https://github.com/sunaku/tamzen-font/releases )
+  or clone this Git repository into `~/.fonts/tamzen-font` and then run:
 
-        xset +fp ~/.fonts/tamzen-font/bdf
-        xset fp rehash
+      xset +fp ~/.fonts/tamzen-font/bdf
+      xset fp rehash
 
 * You should now be able to see the "Tamzen" font family in `xfontsel`.
 
@@ -238,9 +238,9 @@ Requirements for non-Linux font formats:
 License
 -------
 
-> Like my work? :+1: Please [spare a life] today as thanks!
-> :cow::pig::chicken::fish::speak_no_evil::v::revolving_hearts:
-[spare a life]: https://sunaku.github.io/vegan-for-life.html
+[Spare A Life]: https://sunaku.github.io/vegan-for-life.html
+> Like my work? :+1:  Please [spare a life] today as thanks!
+:cow::pig::chicken::fish::speak_no_evil::v::revolving_hearts:
 
 Copyright 2011 Suraj N. Kurapati <https://github.com/sunaku>
 
