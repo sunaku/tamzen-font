@@ -22,6 +22,16 @@ Screenshots
 ![man manual page](https://sunaku.github.io/gruvbox-terminal-color-scheme-man.png)
 ![tmux, vim, etc.](https://sunaku.github.io/tmux-layout-dwindle.png)
 
+```sh
+$ cat sample.txt
+ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345
+abcdefghijklmnopqrstuvwxyz 67890
+{}[]()<>$*-+=/#_%^@\&|~?'"`!,.;:
+Illegal1i = oO0          
+The quick brown fox, (..) Hello,
+jumps over lazy dog. /__\ World!
+```
+
 ### TamzenForPowerline-20
 ![TamzenForPowerline10x20r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline10x20r.png)
 ![TamzenForPowerline10x20b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline10x20b.png)

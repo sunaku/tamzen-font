@@ -281,14 +281,7 @@ rule %r{^png/.+\.png$} => [->(png){ png.sub('png', 'bdf').ext('bdf') }, 'png',
   @bdf_to_x11 ||= Hash[File.readlines('bdf/fonts.dir').map(&:split)]
 
   # assemble sample text for rendering
-  lines = [
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345',
-    'abcdefghijklmnopqrstuvwxyz 67890',
-    '{}[]()<>$*-+=/#_%^@\\&|~?\'"`!,.;:',
-    'Illegal1i = oO0          ',
-    'The quick brown fox, (..) Hello,',
-    'jumps over lazy dog. /__\ World!',
-  ]
+  lines = File.readlines('sample.txt').map(&:chomp)
   width = lines.first.length
   lines.unshift src.center(width)
 

@@ -1,0 +1,6 @@
+ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345
+abcdefghijklmnopqrstuvwxyz 67890
+{}[]()<>$*-+=/#_%^@\&|~?'"`!,.;:
+Illegal1i = oO0          
+The quick brown fox, (..) Hello,
+jumps over lazy dog. /__\ World!
