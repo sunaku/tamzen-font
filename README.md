@@ -91,11 +91,11 @@ jumps over lazy dog. /__\ World!
 Installation
 ------------
 
-In Arch Linux:
+Using a package manager:
 
-* Install [from the AUR](https://aur.archlinux.org/packages/tamzen-font-git/).
+[![Packaging status](https://repology.org/badge/vertical-allrepos/fonts:tamzen.svg)](https://repology.org/project/fonts:tamzen/versions)
 
-On any Linux:
+Manually, on any Linux:
 
 * [Download a release]( https://github.com/sunaku/tamzen-font/releases )
   or clone this Git repository into `~/.fonts/tamzen-font` and then run:
