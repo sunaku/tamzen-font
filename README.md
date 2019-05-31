@@ -107,13 +107,14 @@ On any Linux:
 
 In Microsoft Windows:
 
-* Drag and drop files from the `fnt/` folder into your Windows Fonts folder.
+* Copy the files in `fnt/` and `ttf/` folders into your Windows Fonts folder.
 
 On other platforms:
 
 * Try using the font files in these subfolders:
-  * `dfont/` - Apple bitmap only sfnt (dfont)
+  * `ttf/`   - TrueType Font
   * `pt3/`   - PS Type3 Bitmap
+  * `dfont/` - Apple bitmap only sfnt (dfont)
 
 ### Linux VT integration
 
