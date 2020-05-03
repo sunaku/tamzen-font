@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
-gem 'git', '~> 1.2'
-gem 'rake', '~> 12.3'
+gem 'git', '~> 1.7'
+gem 'rake', '~> 13.0'
