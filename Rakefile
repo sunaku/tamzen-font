@@ -6,6 +6,7 @@ task 'default' => %w[
   .powerline
   .console
   .portable
+  .truetype
   .fontforge
   .screenshots
 ]
@@ -219,6 +220,22 @@ file '.portable' => ['pcf', '.tamzen', '.powerline'] do
   touch '.console'
 end
 CLOBBER.include '.portable', 'pcf'
+
+directory 'ttf'
+desc 'Build Tamzen fonts in TrueType (TTF) format.'
+file '.truetype' => ['ttf', '.tamzen', '.powerline', 'bitsnpicas/downloads/BitsNPicas.jar'] do |t|
+  FileList['bdf/Tamzen*.bdf'].each do |src|
+    dst = src.gsub('bdf', 'ttf')
+    sh 'java', '-jar', t.prerequisites.last,
+      'convertbitmap', '-f', 'ttf', '-o', dst, src
+  end
+  touch '.truetype'
+end
+CLOBBER.include '.truetype', 'ttf'
+
+file 'bitsnpicas/downloads/BitsNPicas.jar' do
+  sh 'git', 'clone', 'https://github.com/kreativekorp/bitsnpicas'
+end
 
 FONTFORGE_FORMATS = [
   'dfont',    # Apple bitmap only sfnt (dfont)
