@@ -23,7 +23,7 @@ Screenshots
 ![tmux, vim, etc.](https://sunaku.github.io/tmux-layout-dwindle.png)
 
 ```sh
-$ cat sample.txt
+$ cat screenshot.txt
 ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345
 abcdefghijklmnopqrstuvwxyz 67890
 {}[]()<>$*-+=/#_%^@\&|~?'"`!,.;:

@@ -2,8 +2,7 @@ require 'tempfile'
 require 'rake/clean'
 
 task 'default' => %w[
-  .tamzen
-  .powerline
+  .bitmap
   .console
   .portable
   .truetype
@@ -11,19 +10,20 @@ task 'default' => %w[
 ]
 
 #-----------------------------------------------------------------------------
-# index
+# bitmap
 #-----------------------------------------------------------------------------
 
 directory 'bdf'
-file 'bdf/fonts.dir' => ['bdf', '.tamzen', '.powerline'] do
+file '.bitmap' => %w[ bdf .tamzen .powerline ] do |t|
   sh 'mkfontdir', 'bdf'
   sh 'xset', '+fp', File.expand_path('bdf')
   sh 'xset', 'fp', 'rehash'
+  touch t.name
 end
-CLOBBER.include 'bdf/Tamzen*.bdf'
+CLOBBER.include %w[ .bitmap bdf/fonts.dir ]
 
 #-----------------------------------------------------------------------------
-# fonts
+# tamzen
 #-----------------------------------------------------------------------------
 
 class Font < Struct.new(:file, :props, :chars)
@@ -105,7 +105,7 @@ TAMZEN_BACKPORT_SPECS = {
 }
 
 desc 'Build Tamzen fonts.'
-file '.tamzen' => ['bdf', __FILE__] do
+file '.tamzen' => ['bdf', __FILE__] do |t|
   require 'git'
   git = Git.open('.')
 
@@ -150,19 +150,23 @@ file '.tamzen' => ['bdf', __FILE__] do
     target_font.props['CHARSET_ENCODING'] = '"1"'
 
     # save backported font under a different name
-    rename = ['Tamsyn', 'Tamzen']
+    rename = %w[ Tamsyn Tamzen ]
     dst = File.join('bdf', target_file.sub(*rename))
     File.write dst, target_font.to_s.gsub(*rename)
   end
 
-  touch '.tamzen'
+  touch t.name
 end
-CLOBBER.include '.tamzen'
+CLOBBER.include %w[ .tamzen bdf/Tamzen[0-9]*.bdf ]
+
+#-----------------------------------------------------------------------------
+# powerline
+#-----------------------------------------------------------------------------
 
 desc 'Build Tamzen fonts for Powerline.'
-file '.powerline' => ['.tamzen', 'bitmap-font-patcher'] do
-  rename = [/Tamzen/, '\&ForPowerline']
-  FileList['bdf/Tamzen*.bdf'].exclude('bdf/*Powerline*').each do |src|
+file '.powerline' => %w[ .tamzen bitmap-font-patcher/fontpatcher.py ] do |t|
+  FileList['bdf/Tamzen[0-9]*.bdf'].each do |src|
+    rename = [/Tamzen/, '\&ForPowerline']
     dst = src.sub(*rename)
     target_font =
       # backport powerline glyphs from existing BDF files or patch them in
@@ -173,7 +177,7 @@ file '.powerline' => ['.tamzen', 'bitmap-font-patcher'] do
         source_font.props['CHARSET_REGISTRY'] = '"ISO10646"'
         source_font
       else
-        IO.popen('bitmap-font-patcher/fontpatcher.py', 'w+') do |patcher|
+        IO.popen(t.prerequisites.last, 'w+') do |patcher|
           # XXX: patcher *only* operates on ISO10646 encoded fonts
           patcher.write File.read(src).gsub('ISO8859', 'ISO10646')
           patcher.close_write
@@ -182,18 +186,21 @@ file '.powerline' => ['.tamzen', 'bitmap-font-patcher'] do
       end
     File.write dst, target_font.to_s.gsub(*rename)
   end
-  touch '.powerline'
+  touch t.name
 end
-CLOBBER.include '.powerline'
+CLOBBER.include %w[ .powerline bdf/TamzenForPowerline*.bdf ]
 
-file 'bitmap-font-patcher' do
+file 'bitmap-font-patcher/fontpatcher.py' do
   sh 'hg', 'clone', 'https://bitbucket.org/ZyX_I/bitmap-font-patcher'
 end
 
+#-----------------------------------------------------------------------------
+# console
+#-----------------------------------------------------------------------------
+
 directory 'psf'
 desc 'Build Tamzen fonts for the Linux Console (VT).'
-file '.console' => ['psf', '.tamzen', '.powerline'] do
-  share = '/usr/share/bdf2psf'
+file '.console' => %w[ psf .bitmap /usr/share/bdf2psf ] do |t|
   FileList['bdf/Tamzen*.bdf'].sort.each_slice(2) do |bold, regular|
     dst = regular.gsub('bdf', 'psf').sub(/r(?=\.psf$)/, '')
     Tempfile.open('symbols') do |symbols_file|
@@ -201,36 +208,44 @@ file '.console' => ['psf', '.tamzen', '.powerline'] do
       symbols_file.puts symbols
       symbols_file.close
       sh 'bdf2psf', '--fb', "#{regular}+#{bold}",
-        "#{share}/standard.equivalents",
+        "#{t.prerequisites.last}/standard.equivalents",
         symbols_file.path, symbols.length.to_s, dst
     end
   end
-  touch '.console'
+  touch t.name
 end
-CLOBBER.include '.console', 'psf'
+CLOBBER.include %w[ .console psf ]
+
+#-----------------------------------------------------------------------------
+# portable
+#-----------------------------------------------------------------------------
 
 directory 'pcf'
 desc 'Build Tamzen fonts in Portable Compiled Format.'
-file '.portable' => ['pcf', '.tamzen', '.powerline'] do
+file '.portable' => %w[ pcf .bitmap ] do |t|
   FileList['bdf/Tamzen*.bdf'].each do |src|
     dst = src.gsub('bdf', 'pcf')
     sh 'bdftopcf', '-o', dst, '-t', src
   end
-  touch '.console'
+  touch t.name
 end
-CLOBBER.include '.portable', 'pcf'
+CLOBBER.include %w[ .portable pcf ]
+
+#-----------------------------------------------------------------------------
+# truetype
+#-----------------------------------------------------------------------------
 
 directory 'ttf'
 desc 'Build Tamzen fonts in TrueType (TTF) format.'
-file '.truetype' => ['ttf', '.tamzen', '.powerline', 'bitsnpicas/downloads/BitsNPicas.jar'] do |t|
+file '.truetype' => %w[ ttf .bitmap bitsnpicas/downloads/BitsNPicas.jar ] do |t|
   FileList['bdf/Tamzen*.bdf'].each do |src|
     dst = src.gsub('bdf', 'ttf')
     sh 'java', '-jar', t.prerequisites.last,
       'convertbitmap', '-f', 'ttf', '-o', dst, src
   end
-  touch '.truetype'
+  touch t.name
 end
-CLOBBER.include '.truetype', 'ttf'
+CLOBBER.include %w[ .truetype ttf ]
 
 file 'bitsnpicas/downloads/BitsNPicas.jar' do
   sh 'git', 'clone', 'https://github.com/kreativekorp/bitsnpicas'
@@ -242,43 +257,37 @@ end
 
 directory 'png'
 desc 'Build font preview screenshots.'
-file '.screenshots' => ['bdf/fonts.dir'] do
+file '.screenshots' => %w[ png .bitmap ] do |t|
   FileList['bdf/Tamzen*.bdf'].each do |bdf|
-    Rake::Task[bdf.sub('bdf', 'png').ext('png')].invoke
+    src = File.basename(bdf)
+    dst = bdf.sub('bdf', 'png').ext('png')
+
+    # translate the BDF font filename into its full X11 font name
+    @bdf_to_x11 ||= Hash[File.readlines('bdf/fonts.dir').map(&:split)]
+
+    # assemble sample text for rendering
+    lines = File.readlines('screenshot.txt').map(&:chomp)
+    width = lines.first.length
+    lines.unshift src.center(width)
+
+    # store sample text in a file because it's the easiest way to render
+    sample_text_file = Tempfile.open('screenshot')
+    sample_text_file.write lines.join(?\n)
+    sample_text_file.close
+
+    # render sample text using the source font to the destination image
+    sh 'xterm',
+      '-fg', 'black',
+      '-bg', 'white',
+      '-T', src,
+      '-font', @bdf_to_x11.fetch(src),
+      '-geometry', "#{lines.first.length}x#{lines.length}",
+      '-e', [
+        'tput civis',                              # hide the cursor
+        "cat #{sample_text_file.path.inspect}",    # show sample text
+        "import -window $WINDOWID #{dst.inspect}", # take a screenshot
+      ].join(' && ')
   end
-  touch '.screenshots'
+  touch t.name
 end
-CLEAN.include '.screenshots', 'png'
-
-rule %r{^png/.+\.png$} => [->(png){ png.sub('png', 'bdf').ext('bdf') }, 'png',
-                           'bdf/fonts.dir'] do |t|
-
-  src = File.basename(t.source)
-  dst = t.name
-
-  # translate the BDF font filename into its full X11 font name
-  @bdf_to_x11 ||= Hash[File.readlines('bdf/fonts.dir').map(&:split)]
-
-  # assemble sample text for rendering
-  lines = File.readlines('sample.txt').map(&:chomp)
-  width = lines.first.length
-  lines.unshift src.center(width)
-
-  # store sample text in a file because it's the easiest way to render
-  sample_text_file = Tempfile.open('screenshot')
-  sample_text_file.write lines.join(?\n)
-  sample_text_file.close
-
-  # render sample text using the source font to the destination image
-  sh 'xterm',
-    '-fg', 'black',
-    '-bg', 'white',
-    '-T', src,
-    '-font', @bdf_to_x11.fetch(src),
-    '-geometry', "#{lines.first.length}x#{lines.length}",
-    '-e', [
-      'tput civis',                              # hide the cursor
-      "cat #{sample_text_file.path.inspect}",    # show sample text
-      "import -window $WINDOWID #{dst.inspect}", # take a screenshot
-    ].join(' && ')
-end
+CLEAN.include %w[ .screenshots png ]
