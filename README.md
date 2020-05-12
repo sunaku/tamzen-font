@@ -95,7 +95,7 @@ Using a package manager:
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/fonts:tamzen.svg)](https://repology.org/project/fonts:tamzen/versions)
 
-Manually, on any Linux:
+Manually, in Linux:
 
 * [Download a release]( https://github.com/sunaku/tamzen-font/releases )
   or clone this Git repository into `~/.fonts/tamzen-font` and then run:
@@ -105,16 +105,13 @@ Manually, on any Linux:
 
 * You should now be able to see the "Tamzen" font family in `xfontsel`.
 
-In Microsoft Windows:
+Manually, in Windows:
 
-* Copy the files in `fnt/` and `ttf/` folders into your Windows Fonts folder.
+* Copy the files from the `ttf/` folder into your Windows Fonts folder.
 
-On other platforms:
+Manually, in macOS:
 
-* Try using the font files in these subfolders:
-  * `ttf/`   - TrueType Font
-  * `pt3/`   - PS Type3 Bitmap
-  * `dfont/` - Apple bitmap only sfnt (dfont)
+* Drag & drop the files from the `ttf/` folder into your Font Book app.
 
 ### Linux VT integration
 
@@ -240,10 +237,6 @@ Requirements for [bitmap-font-patcher][6]:
     sudo apt-get install python python-fontforge python-pip python-dev libfreetype6-dev
     pip install --user bdflib
     pip install --user Pillow
-
-Requirements for non-Linux font formats:
-
-    sudo apt-get install fontforge
 
 License
 -------

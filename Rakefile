@@ -7,7 +7,6 @@ task 'default' => %w[
   .console
   .portable
   .truetype
-  .fontforge
   .screenshots
 ]
 
@@ -236,43 +235,6 @@ CLOBBER.include '.truetype', 'ttf'
 file 'bitsnpicas/downloads/BitsNPicas.jar' do
   sh 'git', 'clone', 'https://github.com/kreativekorp/bitsnpicas'
 end
-
-FONTFORGE_FORMATS = [
-  'dfont',    # Apple bitmap only sfnt (dfont)
-  'fnt',      # Win FNT
-  'pt3',      # PS Type3 Bitmap
-].each do |format|
-  # these non-Linux formats make `xset fp rehash` crash!
-  # so stow them away into their own separate subfolders
-  directory format
-end
-
-FONTFORGE_COMMANDS = ['Open($1)'] + FONTFORGE_FORMATS.map do |format|
-  "Generate(#{(format + '/').inspect} + $1:t:r + #{('.' + format).inspect})"
-end
-
-desc 'Build Tamzen fonts for other platforms.'
-file '.fontforge' => ['.tamzen', '.powerline'] + FONTFORGE_FORMATS do
-  Tempfile.open(['fontforge', '.pe']) do |script|
-    script.puts FONTFORGE_COMMANDS
-    script.close
-    FileList['bdf/Tamzen*.bdf'].each do |src|
-      sh 'fontforge', '-script', script.path, src
-    end
-  end
-
-  # make embedded font names in *.fnt unique
-  # so they don't overwrite each other when
-  # drag-dropped into Windows' fonts folder
-  FileList['fnt/*.fnt'].each do |fnt|
-    name, tag = fnt.pathmap('%n').sub(/-\d+$/, '').split(/(?=\d)/, 2)
-    unique = File.read(fnt, mode: 'rb').sub(/(?<=#{name})(?=\0\z)/, tag)
-    File.write fnt, unique
-  end
-
-  touch '.fontforge'
-end
-CLOBBER.include '.fontforge', *FONTFORGE_FORMATS
 
 #-----------------------------------------------------------------------------
 # screenshots
