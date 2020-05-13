@@ -16,6 +16,36 @@ I later hand-tweaked those symbols to perfection in the gbdfed(1) editor:
 * For the newline icon ( U+E0A1), I made the "N" at the bottom larger.
 * For the padlock icon ( U+E0A2), I replaced the keyhole with // lines.
 
+Overview
+--------
+
+<!-- vim-markdown-toc GFM -->
+
+* [Screenshots](#screenshots)
+  * [TamzenForPowerline-20](#tamzenforpowerline-20)
+  * [TamzenForPowerline-16](#tamzenforpowerline-16)
+  * [TamzenForPowerline-15](#tamzenforpowerline-15)
+  * [TamzenForPowerline-14](#tamzenforpowerline-14)
+  * [TamzenForPowerline-13](#tamzenforpowerline-13)
+  * [TamzenForPowerline-12](#tamzenforpowerline-12)
+  * [TamzenForPowerline-9](#tamzenforpowerline-9)
+  * [Tamzen-20](#tamzen-20)
+  * [Tamzen-16](#tamzen-16)
+  * [Tamzen-15](#tamzen-15)
+  * [Tamzen-14](#tamzen-14)
+  * [Tamzen-13](#tamzen-13)
+  * [Tamzen-12](#tamzen-12)
+  * [Tamzen-9](#tamzen-9)
+* [Installation](#installation)
+  * [Linux VT integration](#linux-vt-integration)
+  * [XTerm integration](#xterm-integration)
+  * [URxvt integration](#urxvt-integration)
+* [Building](#building)
+  * [Requirements](#requirements)
+* [License](#license)
+
+<!-- vim-markdown-toc -->
+
 Screenshots
 -----------
 
