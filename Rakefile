@@ -6,6 +6,7 @@ task 'default' => %w[
   .console
   .portable
   .truetype
+  .opentype
   .screenshots
 ]
 
@@ -230,6 +231,21 @@ file '.portable' => %w[ pcf .bitmap ] do |t|
   touch t.name
 end
 CLOBBER.include %w[ .portable pcf ]
+
+#-----------------------------------------------------------------------------
+# opentype
+#-----------------------------------------------------------------------------
+
+directory 'otb'
+desc 'Build Tamzen fonts in OpenType Bitmap (OTB) format.'
+file '.opentype' => %w[ otb .bitmap ] do |t|
+  FileList['bdf/Tamzen*.bdf'].each do |src|
+    dst = src.gsub('bdf', 'otb')
+    sh 'fonttosfnt', '-o', dst, '--', src
+  end
+  touch t.name
+end
+CLOBBER.include %w[ .opentype otb ]
 
 #-----------------------------------------------------------------------------
 # truetype
