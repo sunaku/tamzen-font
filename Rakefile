@@ -192,7 +192,7 @@ end
 CLOBBER.include %w[ .powerline bdf/TamzenForPowerline*.bdf ]
 
 file 'bitmap-font-patcher/fontpatcher.py' do
-  sh 'hg', 'clone', 'https://bitbucket.org/ZyX_I/bitmap-font-patcher'
+  sh 'git', 'clone', 'https://github.com/sunaku/bitmap-font-patcher'
 end
 
 #-----------------------------------------------------------------------------
