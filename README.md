@@ -286,4 +286,4 @@ Distributed under the same terms as the Tamsyn font.  See `LICENSE` file.
 [3]: http://invisible-island.net/xterm/
 [4]: http://software.schmorp.de/pkg/rxvt-unicode.html
 [5]: https://powerline.readthedocs.org/en/master/overview.html#screenshots
-[6]: https://bitbucket.org/ZyX_I/bitmap-font-patcher
+[6]: https://github.com/sunaku/bitmap-font-patcher
