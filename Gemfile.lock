@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    git (1.7.0)
+    git (1.11.0)
       rchardet (~> 1.8)
     rake (13.0.1)
     rchardet (1.8.0)
@@ -10,7 +10,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  git (~> 1.7)
+  git (~> 1.11)
   rake (~> 13.0)
 
 BUNDLED WITH
