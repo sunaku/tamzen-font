@@ -250,20 +250,28 @@ fonts when run inside a shell that is attached to [the URxvt terminal][4].
 Building
 --------
 
+### Docker method
+
+If you have Docker available, use the convenient `rake docker` command:
+
+    rake docker
+
+### Manual method
+
 You can build the Tamzen fonts for yourself by running these commands:
 
     bundle exec rake                 # build things only when necessary
     bundle exec rake clobber         # destroy everything that we built
     bundle exec rake clobber default # rebuild everything from scratch
 
-### Requirements
+But first, you'll need to install these dependencies (assuming Debian):
 
     # NOTE: the "xfonts-utils" package provides both bdftopcf(1) and fonttosfnt(1)
     sudo apt-get install ruby git imagemagick xfonts-utils bdf2psf default-jre gbdfed
     gem install bundler
     bundle install
 
-Requirements for [bitmap-font-patcher][6]:
+Similarly, if you've opted to use [bitmap-font-patcher][6] integration:
 
     sudo apt-get install python python-fontforge python-pip python-dev libfreetype6-dev
     pip install --user bdflib

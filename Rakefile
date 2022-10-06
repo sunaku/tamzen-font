@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'shellwords'
 require 'rake/clean'
 
 task 'default' => %w[
@@ -9,6 +10,51 @@ task 'default' => %w[
   .opentype
   .screenshots
 ]
+
+#-----------------------------------------------------------------------------
+# docker
+#-----------------------------------------------------------------------------
+
+DOCKER_IMAGE = 'tamzen-font'
+
+task :docker => 'docker:container'
+
+task 'docker:image' => %w[ Dockerfile Gemfile Gemfile.lock ] do |t|
+  sh "tar -cf- #{t.prerequisites.shelljoin} | docker build -t #{DOCKER_IMAGE} -"
+end
+
+task 'docker:container' => 'docker:image' do
+  container = `
+    docker create \
+      -v #{Dir.pwd.shellescape}:/run/input #{DOCKER_IMAGE} \
+    sleep infinity
+  `.chomp
+  raise unless $?.success?
+
+  begin
+    sh "docker start #{container}"
+    sh "docker exec #{container} rake -f /run/input/Rakefile docker:exec"
+    sh "docker cp #{container}:/opt _build"
+  ensure
+    sh "docker rm -f #{container}"
+  end
+
+  sh "rsync -auv _build/ ./ --exclude=_build"
+end
+CLOBBER.include %w[ _build ]
+
+task 'docker:exec' do
+  raise unless Dir.pwd == '/opt'
+  sh "cp -pRT /run/input ."
+
+  ENV['DISPLAY'] = ':1'
+  sh "vncserver -SecurityTypes None $DISPLAY"
+  begin
+    sh "bundle exec rake clobber default"
+  ensure
+    system "vncserver -kill $DISPLAY" # exits nonzero
+  end
+end
 
 #-----------------------------------------------------------------------------
 # bitmap

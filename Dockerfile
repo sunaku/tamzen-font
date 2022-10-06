@@ -22,7 +22,3 @@ WORKDIR /opt
 COPY Gemfile .
 COPY Gemfile.lock .
 RUN bundler install
-# RUN vncserver -SecurityTypes None \
-#  && export DISPLAY=$(ls -t ~/.vnc/*.pid | grep -oPm1 ':\d+') \
-#  && bundler exec rake clobber default
-# COPY /opt .
