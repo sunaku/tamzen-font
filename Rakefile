@@ -32,27 +32,28 @@ task 'docker:container' => 'docker:image' do
   raise unless $?.success?
 
   begin
-    sh "docker start #{container}"
-    sh "docker exec #{container} rake -f /run/input/Rakefile docker:exec"
-    sh "docker cp #{container}:/opt _build"
+    sh 'docker', 'start', container
+    sh 'docker', 'exec', container,
+      'rake', '-f', '/run/input/Rakefile', 'docker:exec'
+    sh 'docker', 'cp', "#{container}:/opt", '_build'
   ensure
-    sh "docker rm -f #{container}"
+    sh 'docker', 'rm', '-f', container
   end
 
-  sh "rsync -auv _build/ ./ --exclude=_build"
+  sh 'rsync', '-auv', '_build/', './', '--exclude=_build'
 end
 CLOBBER.include %w[ _build ]
 
 task 'docker:exec' do
   raise unless Dir.pwd == '/opt'
-  sh "cp -pRT /run/input ."
+  sh 'cp', '-pRT', '/run/input', '.'
 
-  ENV['DISPLAY'] = ':1'
-  sh "vncserver -SecurityTypes None $DISPLAY"
+  ENV['DISPLAY'] = display = ':1'
+  sh 'vncserver', '-SecurityTypes', 'None', display
   begin
-    sh "bundle exec rake clobber default"
+    sh 'bundle', 'exec', 'rake', 'clobber', 'default'
   ensure
-    system "vncserver -kill $DISPLAY" # exits nonzero
+    system 'vncserver', '-kill', display # exits nonzero
   end
 end
 
