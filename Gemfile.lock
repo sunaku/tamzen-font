@@ -1,8 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    git (1.7.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
+    git (1.13.0)
+      addressable (~> 2.8)
       rchardet (~> 1.8)
+    public_suffix (5.0.1)
     rake (13.0.1)
     rchardet (1.8.0)
 
@@ -10,7 +14,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  git (~> 1.7)
+  git (~> 1.13)
   rake (~> 13.0)
 
 BUNDLED WITH
