@@ -108,8 +108,8 @@ TAMZEN_BACKPORT_SPECS = {
 
   /10x20/ => %w[
 
-                                O   Q
-    a b c d e   g h   j   l m n o p q r     u   w   y
+                                O   Q   S
+    a b c d e   g h   j   l m n o p q r s   u   w   y
 
   ],
 
