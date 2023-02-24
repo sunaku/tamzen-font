@@ -267,7 +267,7 @@ You can build the Tamzen fonts for yourself by running these commands:
 But first, you'll need to install these dependencies (assuming Debian):
 
     # NOTE: the "xfonts-utils" package provides both bdftopcf(1) and fonttosfnt(1)
-    sudo apt-get install ruby git imagemagick xfonts-utils bdf2psf default-jre gbdfed
+    sudo apt-get install ruby git imagemagick xfonts-utils bdf2psf default-jre gbdfed openjdk-11-jdk-headless
     gem install bundler -v 2.3.26
     bundle install
 

@@ -287,7 +287,7 @@ CLOBBER.include %w[ .opentype otb ]
 
 directory 'ttf'
 desc 'Build Tamzen fonts in TrueType (TTF) format.'
-file '.truetype' => %w[ ttf .bitmap bitsnpicas/downloads/BitsNPicas.jar ] do |t|
+file '.truetype' => %w[ ttf .bitmap bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar ] do |t|
   FileList['bdf/Tamzen*.bdf'].each do |src|
     dst = src.gsub('bdf', 'ttf')
     sh 'java', '-jar', t.prerequisites.last,
@@ -297,8 +297,14 @@ file '.truetype' => %w[ ttf .bitmap bitsnpicas/downloads/BitsNPicas.jar ] do |t|
 end
 CLOBBER.include %w[ .truetype ttf ]
 
-file 'bitsnpicas/downloads/BitsNPicas.jar' do
-  sh 'git', 'clone', 'https://github.com/kreativekorp/bitsnpicas'
+file 'bitsnpicas/main/java/BitsNPicas/BitsNPicas.jar' do
+  sh 'git', 'clone', 'https://github.com/sunaku/bitsnpicas'
+  cd 'bitsnpicas' do
+    sh 'git', 'checkout', 'timeless'
+    cd 'main/java/BitsNPicas' do
+      sh 'make', 'BitsNPicas.jar'
+    end
+  end
 end
 
 #-----------------------------------------------------------------------------

@@ -7,6 +7,9 @@ RUN apt-get install -y locales \
  && sed -i "s/^# $LANG/$LANG/" /etc/locale.gen \
  && locale-gen
 
+# for BitsNPicas
+RUN apt-get install -y openjdk-11-jdk-headless
+
 # for bitmap-font-patcher
 RUN apt-get install -y python python-fontforge python-pip python-dev libfreetype6-dev
 RUN pip install bdflib Pillow
