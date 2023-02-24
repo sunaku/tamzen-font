@@ -268,7 +268,7 @@ But first, you'll need to install these dependencies (assuming Debian):
 
     # NOTE: the "xfonts-utils" package provides both bdftopcf(1) and fonttosfnt(1)
     sudo apt-get install ruby git imagemagick xfonts-utils bdf2psf default-jre gbdfed
-    gem install bundler
+    gem install bundler -v 2.3.26
     bundle install
 
 Similarly, if you've opted to use [bitmap-font-patcher][6] integration:

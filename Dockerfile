@@ -16,7 +16,7 @@ RUN pip install bdflib Pillow
 # NOTE: xfonts-utils provides bdftopcf(1) and fonttosfnt(1)
 RUN apt-get install -y ruby git xfonts-utils bdf2psf default-jre \
                        vnc4server x11-xserver-utils xterm imagemagick
-RUN gem install bundler
+RUN gem install bundler -v 2.3.26
 
 WORKDIR /opt
 COPY Gemfile .
