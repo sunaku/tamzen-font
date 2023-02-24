@@ -24,29 +24,14 @@ task 'docker:image' => %w[ Dockerfile Gemfile Gemfile.lock ] do |t|
 end
 
 task 'docker:container' => 'docker:image' do
-  container = `
-    docker create \
-      -v #{Dir.pwd.shellescape}:/run/input #{DOCKER_IMAGE} \
-    sleep infinity
-  `.chomp
-  raise unless $?.success?
-
-  begin
-    sh 'docker', 'start', container
-    sh 'docker', 'exec', container,
-      'rake', '-f', '/run/input/Rakefile', 'docker:exec'
-    sh 'docker', 'cp', "#{container}:/opt", '_build'
-  ensure
-    sh 'docker', 'rm', '-f', container
-  end
-
-  sh 'rsync', '-auv', '_build/', './', '--exclude=_build'
+  sh 'docker', 'run',
+    '-v', "#{Dir.pwd.shellescape}:/opt",
+    '--rm', '-it', DOCKER_IMAGE,
+    'rake', 'docker:exec', "CHOWN=#{Process.euid}:#{Process.egid}"
 end
-CLOBBER.include %w[ _build ]
 
 task 'docker:exec' do
   raise unless Dir.pwd == '/opt'
-  sh 'cp', '-pRT', '/run/input', '.'
 
   ENV['DISPLAY'] = display = ':1'
   sh 'vncserver', '-SecurityTypes', 'None', display
@@ -55,6 +40,8 @@ task 'docker:exec' do
   ensure
     system 'vncserver', '-kill', display # exits nonzero
   end
+
+  sh 'find', '.', '-user', 'root', '-exec', 'chown', ENV['CHOWN'], '{}', ';'
 end
 
 #-----------------------------------------------------------------------------
