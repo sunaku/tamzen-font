@@ -26,6 +26,7 @@ Overview
     * [Linux VT integration](#linux-vt-integration)
     * [XTerm integration](#xterm-integration)
     * [URxvt integration](#urxvt-integration)
+    * [WezTerm integration](#wezterm-integration)
 * [Building](#building)
     * [Docker method](#docker-method)
     * [Manual method](#manual-method)
@@ -134,10 +135,10 @@ Manually, in macOS:
 
 See <https://wiki.archlinux.org/index.php/Fonts#Console_fonts> for details.
 
-### XTerm integration
+### [XTerm][3] integration
 
-The following Xresources let you dynamically switch between the various Tamzen
-fonts by holding down Control and right-clicking in [the XTerm terminal][3].
+The following Xresources allow you to dynamically switch between the various
+Tamzen fonts by holding down Control and right-clicking in the XTerm terminal.
 
     XTerm*font  : -*-tamzen-medium-*-*-*-16-*-*-*-*-*-*-*
     XTerm*font1 : -*-tamzen-medium-*-*-*-9-*-*-*-*-*-*-*
@@ -160,10 +161,10 @@ Feed the above snippet into the xrdb(1) program and then start a new XTerm to
 see its effect.  Afterwards, you can add this snippet to your ~/.Xdefaults or
 ~/.Xresources files to have these settings be automatically applied by XTerm.
 
-### URxvt integration
+### [URxvt][4] integration
 
-The following aliases let you dynamically switch between the various Tamzen
-fonts when run inside a shell that is attached to [the URxvt terminal][4].
+The following command aliases let you dynamically switch between the various
+Tamzen fonts when run inside a shell that is attached to the URxvt terminal.
 
     alias font="printf '\e]710;%s\007'"
 
@@ -224,6 +225,29 @@ fonts when run inside a shell that is attached to [the URxvt terminal][4].
     alias TamzenForPowerline10x20r='font -misc-tamzenforpowerline-medium-r-normal--20-145-100-100-c-100-iso10646-1'
     alias TamzenForPowerline10x20b='font -misc-tamzenforpowerline-bold-r-normal--20-145-100-100-c-100-iso10646-1'
 
+### [WezTerm][7] integration
+
+Specify your desired font size along with the name of your desired font variant
+(either Tamzen or TamzenForPowerline) in your ~/.wezterm.lua configuration file:
+
+    return {
+      font_size = 10,
+      font = wezterm.font_with_fallback { 'TamzenForPowerline' },
+    }
+
+You can also disable ligatures just for Tamzen fonts since they lack ligatures:
+
+    return {
+      font_size = 10,
+      font = wezterm.font_with_fallback {
+        {
+          family = 'TamzenForPowerline', weight = 'Medium',
+          -- disable ligatures for Tamzen since it lacks them
+          harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+        },
+      },
+    }
+
 Building
 --------
 
@@ -273,3 +297,4 @@ Distributed under the same terms as the Tamsyn font.  See `LICENSE` file.
 [4]: http://software.schmorp.de/pkg/rxvt-unicode.html
 [5]: https://powerline.readthedocs.org/en/master/overview.html#screenshots
 [6]: https://github.com/sunaku/bitmap-font-patcher
+[7]: https://wezfurlong.org/wezterm/
