@@ -36,9 +36,6 @@ Overview
 Screenshots
 -----------
 
-![man manual page](https://sunaku.github.io/gruvbox-terminal-color-scheme-man.png)
-![tmux, vim, etc.](https://sunaku.github.io/tmux-layout-dwindle.png)
-
 ```sh
 $ cat screenshot.txt
 ABCDEFGHIJKLMNOPQRSTUVWXYZ 12345
@@ -90,6 +87,13 @@ jumps over lazy dog. /__\ World!
 
 ![TamzenForPowerline5x9r.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline5x9r.png)
 ![TamzenForPowerline5x9b.bdf](https://github.com/sunaku/tamzen-font/raw/master/png/TamzenForPowerline5x9b.png)
+
+![man manual page](https://sunaku.github.io/papercolor-terminal-color-scheme-man.png)
+![man manual page](https://sunaku.github.io/gruvbox-terminal-color-scheme-man.png)
+![man manual page](https://sunaku.github.io/tomorrow-terminal-color-scheme-man.png)
+![man manual page](https://sunaku.github.io/xoria256-terminal-color-scheme-man.png)
+![man manual page](https://sunaku.github.io/zenburn-terminal-color-scheme-man.png)
+![tmux, vim, etc.](https://sunaku.github.io/tmux-layout-dwindle.png)
 
 Installation
 ------------
