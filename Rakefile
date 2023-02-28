@@ -173,9 +173,20 @@ file '.tamzen' => ['bdf', __FILE__] do |t|
 
       TAMZEN_BACKPORT_TREES.any? do |tree|
         source_files.any? do |file|
-          source_font = font_by_tree_and_file[[tree, file]] and
-          source_char = source_font.chars[codepoint] and
-          target_font.chars[codepoint] = source_char # backport!
+          if source_font = font_by_tree_and_file[[tree, file]] and
+             source_char = source_font.chars[codepoint]
+          then
+            ported_char = source_char.dup
+            target_char = target_font.chars[codepoint]
+
+            # preserve the aspect ratio of target font
+            aspect_ratio_regex = /\A.*(?=\nBBX\b)/mo
+            if target_char =~ aspect_ratio_regex
+              ported_char.sub! aspect_ratio_regex, $&
+            end
+
+            target_font.chars[codepoint] = ported_char # backport!
+          end
         end
       end or warn "#{target_file}: glyph #{glyph.inspect} (#{codepoint}) not found"
     end or warn "#{target_file}: not all glyphs were backported; see errors above"
